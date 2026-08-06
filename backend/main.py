@@ -13,9 +13,9 @@ from typing import Optional, List, Dict
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 app = FastAPI(
-    title="CropWise AI Precision Intelligence API",
+    title="farmpro.ai Precision Intelligence API",
     description="Audited ML Engine with 33 Crops, Factual Maharashtra Agronomy (Ginger, Sugarcane, Turmeric, Soybean, Jowar, Bajra, Onion, Sweet Lime), 30+ District GIS Data, and Organic Advisory",
-    version="5.1.0"
+    version="5.2.0"
 )
 
 app.add_middleware(
@@ -81,7 +81,7 @@ CLEAN_CROP_NAMES = {
 }
 
 FARMER_USERS_DB = {
-    "farmer@cropwise.ai": {
+    "farmer@farmpro.ai": {
         "name": "Ramesh Kumar",
         "password": "password123",
         "state": "Maharashtra",
@@ -214,7 +214,7 @@ class PredictionRequest(BaseModel):
 @app.get("/")
 def read_root():
     return {
-        "system": "CropWise AI Precision Intelligence API",
+        "system": "farmpro.ai Precision Intelligence API",
         "status": "Online",
         "states_available": list(EXPANDED_DISTRICTS_DB.keys()),
         "crops_supported": len(class_names)

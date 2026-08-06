@@ -7,7 +7,7 @@ import numpy as np
 
 # Page Configuration
 st.set_page_config(
-    page_title="CropWise AI | Precision Agriculture Platform",
+    page_title="farmpro.ai | Precision Agriculture Platform",
     page_icon="🌱",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -165,7 +165,7 @@ st.markdown("""
 <div class="hero-header">
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
-            <h1 class="hero-title">🌱 CropWise AI</h1>
+            <h1 class="hero-title">🌱 farmpro.ai</h1>
             <p class="hero-subtitle">Precision Agriculture Decision Engine & Agro-Climatic Intelligence</p>
         </div>
         <div style="text-align: right;">
@@ -521,7 +521,7 @@ with tab_auth:
         
         with auth_tab1:
             st.markdown("#### Sign in to access your Soil Health Card history & farm logs.")
-            in_email = st.text_input("Email Address", "farmer@cropwise.ai", key="tab_login_email")
+            in_email = st.text_input("Email Address", "farmer@farmpro.ai", key="tab_login_email")
             in_pass = st.text_input("Password", "password123", type="password", key="tab_login_pass")
             
             if st.button("🔓 Sign In Now", key="btn_signin"):
@@ -541,7 +541,7 @@ with tab_auth:
         with auth_tab2:
             st.markdown("#### Register a new farmer profile to get customized soil advisory.")
             r_name = st.text_input("Full Name", "Aarav Patel", key="reg_name")
-            r_email = st.text_input("Email", "aarav@cropwise.ai", key="reg_email")
+            r_email = st.text_input("Email", "aarav@farmpro.ai", key="reg_email")
             r_pass = st.text_input("Password", "secret123", type="password", key="reg_pass")
             r_state = st.selectbox("State", ["Maharashtra", "Punjab", "Karnataka", "Tamil Nadu", "Gujarat", "Assam"], key="reg_state")
             r_district = st.text_input("District", "Nashik", key="reg_district")
@@ -565,4 +565,4 @@ with tab_auth:
                     st.error("Backend API connection error.")
 
 st.markdown("---")
-st.markdown("<p style='text-align: center; color: #5D8071; font-size: 0.9rem;'>CropWise AI Platform • Precision Agriculture Decision Engine</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #5D8071; font-size: 0.9rem;'>farmpro.ai Platform • Precision Agriculture Decision Engine</p>", unsafe_allow_html=True)
