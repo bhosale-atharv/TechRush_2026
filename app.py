@@ -118,8 +118,8 @@ st.markdown("""
         margin-bottom: 14px;
     }
     .organic-item {
-        background: rgba(0, 0, 0, 0.3);
-        border: 1px solid rgba(241, 196, 15, 0.2);
+        background: rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(241, 196, 15, 0.25);
         border-radius: 12px;
         padding: 14px 18px;
         margin-bottom: 12px;
@@ -127,7 +127,7 @@ st.markdown("""
     .organic-label {
         color: #00FF9D;
         font-weight: 700;
-        font-size: 0.96rem;
+        font-size: 0.98rem;
     }
     .organic-desc {
         color: #D5E5DE;
@@ -237,11 +237,7 @@ with tab_recommend:
     col_left, col_right = st.columns([1, 1.15])
 
     with col_left:
-        st.markdown("""
-        <div class="card">
-            <div class="card-header">📊 Soil & Climate Telemetry</div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("""<div class="card"><div class="card-header">📊 Soil & Climate Telemetry</div></div>""", unsafe_allow_html=True)
         
         m1, m2, m3 = st.columns(3)
         m1.metric("N-P-K Ratio", f"{int(n_val)}-{int(p_val)}-{int(k_val)}")
@@ -313,13 +309,7 @@ with tab_recommend:
             
             top_score = top_recs[0]["confidence"]
             
-            st.markdown(f"""
-            <div class="winner-card">
-                <div style="color: #A0C4B4; text-transform: uppercase; font-size: 0.95rem; font-weight: 800;">🥇 Recommended Optimal Crop</div>
-                <div class="winner-name">{winner}</div>
-                <div class="winner-conf">{top_score:.1f}% Confidence Match</div>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(f"""<div class="winner-card"><div style="color: #A0C4B4; text-transform: uppercase; font-size: 0.95rem; font-weight: 800;">🥇 Recommended Optimal Crop</div><div class="winner-name">{winner}</div><div class="winner-conf">{top_score:.1f}% Confidence Match</div></div>""", unsafe_allow_html=True)
             
             crops_list = [r["crop"] for r in top_recs[::-1]]
             confs_list = [r["confidence"] for r in top_recs[::-1]]
@@ -350,32 +340,31 @@ with tab_recommend:
 
     if response_data:
         st.markdown("---")
-        st.markdown(f"""
-        <div class="organic-box">
-            <div class="organic-header">🌿 Zero-Synthetic Organic Profitability Advisory for '{winner}'</div>
-            <p style="color: #D5E5DE; margin-bottom: 15px;">Maximize your net profit margin by reducing synthetic fertilizer expenses using proven natural farming techniques.</p>
-            
-            <div class="organic-item">
-                <div class="organic-label">🧪 Bio-Fertilizer & Organic Nutrient Substitution:</div>
-                <div class="organic-desc">{organic_advisory['organic_fertilizers']}</div>
-            </div>
-            
-            <div class="organic-item">
-                <div class="organic-label">🐞 Biological & Natural Pest Control:</div>
-                <div class="organic-desc">{organic_advisory['natural_pest_control']}</div>
-            </div>
-            
-            <div class="organic-item">
-                <div class="organic-label">🌱 Natural Intercropping & Nitrogen Fixation:</div>
-                <div class="organic-desc">{organic_advisory['intercropping_profit']}</div>
-            </div>
-            
-            <div class="organic-item">
-                <div class="organic-label">💰 Profit Maximization & Market Strategy:</div>
-                <div class="organic-desc">{organic_advisory['max_profit_tip']}</div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        org_html = f"""<div class="organic-box">
+<div class="organic-header">🌿 Zero-Synthetic Organic Profitability Advisory for '{winner}'</div>
+<p style="color: #D5E5DE; margin-bottom: 15px;">Maximize your net profit margin by reducing synthetic fertilizer expenses using proven natural farming techniques.</p>
+
+<div class="organic-item">
+<div class="organic-label">🧪 Bio-Fertilizer & Organic Nutrient Substitution:</div>
+<div class="organic-desc">{organic_advisory['organic_fertilizers']}</div>
+</div>
+
+<div class="organic-item">
+<div class="organic-label">🐞 Biological & Natural Pest Control:</div>
+<div class="organic-desc">{organic_advisory['natural_pest_control']}</div>
+</div>
+
+<div class="organic-item">
+<div class="organic-label">🌱 Natural Intercropping & Nitrogen Fixation:</div>
+<div class="organic-desc">{organic_advisory['intercropping_profit']}</div>
+</div>
+
+<div class="organic-item">
+<div class="organic-label">💰 Profit Maximization & Market Strategy:</div>
+<div class="organic-desc">{organic_advisory['max_profit_tip']}</div>
+</div>
+</div>"""
+        st.markdown(org_html, unsafe_allow_html=True)
 
 # TAB 2: Searchable Geographical Representation & GIS Map
 with tab_map:
@@ -463,17 +452,16 @@ with tab_map:
             for idx, row in filtered_map_df.reset_index().iterrows():
                 col_idx = idx % 3
                 with d_cols[col_idx]:
-                    st.markdown(f"""
-                    <div class="district-grid-card">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <strong style="color: #00FF9D; font-size: 1.1rem;">📍 {row['district']}</strong>
-                            <span style="background: rgba(0, 255, 157, 0.15); color: #00FF9D; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem;">{row['state']}</span>
-                        </div>
-                        <div style="color: #A3C9B8; font-size: 0.9rem; margin-top: 6px;">🌾 <b>Crop Belt:</b> {row['primary_crop']}</div>
-                        <div style="color: #A3C9B8; font-size: 0.9rem;">🏔️ <b>Elevation:</b> {row['elevation_m']}m | 🌧️ <b>Rainfall:</b> {row['rainfall']}mm</div>
-                        <div style="color: #A3C9B8; font-size: 0.9rem;">🧪 <b>Soil:</b> {row['soil_type']}</div>
-                    </div>
-                    """, unsafe_allow_html=True)
+                    card_html = f"""<div class="district-grid-card">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<strong style="color: #00FF9D; font-size: 1.1rem;">📍 {row['district']}</strong>
+<span style="background: rgba(0, 255, 157, 0.15); color: #00FF9D; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem;">{row['state']}</span>
+</div>
+<div style="color: #A3C9B8; font-size: 0.9rem; margin-top: 6px;">🌾 <b>Crop Belt:</b> {row['primary_crop']}</div>
+<div style="color: #A3C9B8; font-size: 0.9rem;">🏔️ <b>Elevation:</b> {row['elevation_m']}m | 🌧️ <b>Rainfall:</b> {row['rainfall']}mm</div>
+<div style="color: #A3C9B8; font-size: 0.9rem;">🧪 <b>Soil:</b> {row['soil_type']}</div>
+</div>"""
+                    st.markdown(card_html, unsafe_allow_html=True)
         else:
             st.warning("No districts matched your search query. Try clearing the filters.")
 
