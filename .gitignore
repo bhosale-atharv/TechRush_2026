@@ -1,0 +1,17 @@
+# Python & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+
+# Large Datasets & Model Checkpoints
+massive_crop_data.csv
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
