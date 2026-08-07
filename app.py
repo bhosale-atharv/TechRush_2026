@@ -13,7 +13,30 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS - Daylight Warm Agricultural Theme
+# High-Quality Crop Background Image Mapping
+CROP_IMAGE_MAP = {
+    "ginger": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=1000&q=80",
+    "turmeric": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=1000&q=80",
+    "sugarcane": "https://images.unsplash.com/photo-1595166299106-932f91a27e7d?auto=format&fit=crop&w=1000&q=80",
+    "cotton": "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&w=1000&q=80",
+    "soybean": "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=1000&q=80",
+    "rice": "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=1000&q=80",
+    "wheat": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=1000&q=80",
+    "maize": "https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=1000&q=80",
+    "jowar": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80",
+    "bajra": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80",
+    "onion": "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cf?auto=format&fit=crop&w=1000&q=80",
+    "banana": "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=1000&q=80",
+    "grapes": "https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&w=1000&q=80",
+    "mango": "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=1000&q=80",
+    "cashew": "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=1000&q=80",
+    "pomegranate": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=1000&q=80",
+    "chickpea": "https://images.unsplash.com/photo-1515543904379-3d757afe72e3?auto=format&fit=crop&w=1000&q=80",
+    "pigeonpeas": "https://images.unsplash.com/photo-1515543904379-3d757afe72e3?auto=format&fit=crop&w=1000&q=80",
+    "default": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80"
+}
+
+# Custom CSS - Daylight Warm Agricultural Theme with High Contrast Overrides
 st.markdown("""
 <style>
     /* Daylight Clean Canvas */
@@ -21,6 +44,60 @@ st.markdown("""
         background-color: #F8FAFC;
         color: #1E293B;
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    /* Strict High-Contrast Metric Overrides */
+    [data-testid="stMetricValue"] {
+        color: #0F172A !important;
+        font-size: 1.45rem !important;
+        font-weight: 800 !important;
+    }
+    [data-testid="stMetricLabel"] {
+        color: #15803D !important;
+        font-size: 0.92rem !important;
+        font-weight: 700 !important;
+    }
+    [data-testid="stMetricDelta"] {
+        color: #16A34A !important;
+    }
+    
+    /* Tabs High Contrast Styling */
+    button[data-baseweb="tab"] p {
+        color: #334155 !important;
+        font-weight: 700 !important;
+        font-size: 0.98rem !important;
+    }
+    button[data-baseweb="tab"][aria-selected="true"] p {
+        color: #15803D !important;
+        font-weight: 800 !important;
+    }
+
+    /* Form Labels & Input High Contrast */
+    .stSelectbox label, .stNumberInput label, .stTextInput label, .stMultiSelect label {
+        color: #0F172A !important;
+        font-weight: 700 !important;
+        font-size: 0.92rem !important;
+    }
+    
+    /* Main Content Headings */
+    h1, h2, h3, h4, h5, h6 {
+        color: #14532D !important;
+        font-weight: 800 !important;
+    }
+    p, span, div {
+        color: #1E293B;
+    }
+    
+    /* Info Alert Boxes Override */
+    [data-testid="stAlert"] {
+        background-color: #F0FDF4 !important;
+        border: 1px solid #86EFAC !important;
+        color: #14532D !important;
+        border-radius: 14px !important;
+    }
+    [data-testid="stAlert"] p {
+        color: #14532D !important;
+        font-weight: 600 !important;
     }
     
     /* Clean Hero Header Banner */
@@ -67,28 +144,6 @@ st.markdown("""
         font-weight: 700;
         margin-bottom: 12px;
     }
-    
-    /* Winning Crop Daylight Card */
-    .winner-card {
-        background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
-        border: 2px solid #22C55E;
-        border-radius: 18px;
-        padding: 24px;
-        text-align: center;
-        margin-bottom: 20px;
-        box-shadow: 0 6px 20px rgba(34, 197, 94, 0.12);
-    }
-    .winner-name {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #15803D;
-        margin: 6px 0;
-    }
-    .winner-conf {
-        font-size: 1.25rem;
-        color: #D97706;
-        font-weight: 700;
-    }
 
     /* Confidence Advantage Rationale Box */
     .advantage-box {
@@ -104,24 +159,48 @@ st.markdown("""
     .advantage-title {
         color: #92400E;
         font-size: 1.08rem;
-        font-weight: 700;
+        font-weight: 800;
         margin-bottom: 8px;
     }
     .advantage-badge {
         display: inline-block;
         background: #FEF3C7;
         color: #B45309;
-        font-weight: 700;
+        font-weight: 800;
         font-size: 0.88rem;
-        padding: 4px 12px;
+        padding: 4px 14px;
         border-radius: 20px;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         border: 1px solid #FDE68A;
     }
     .advantage-text {
-        color: #78350F;
+        color: #451A03;
+        font-size: 0.96rem;
+        line-height: 1.6;
+        font-weight: 500;
+    }
+
+    /* AI Reasoning Box */
+    .ai-reasoning-box {
+        background: #F0FDF4;
+        border: 1px solid #86EFAC;
+        border-left: 5px solid #16A34A;
+        border-radius: 14px;
+        padding: 16px 20px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+    .ai-reasoning-header {
+        color: #14532D;
+        font-weight: 800;
+        font-size: 1rem;
+        margin-bottom: 4px;
+    }
+    .ai-reasoning-body {
+        color: #1E293B;
         font-size: 0.95rem;
-        line-height: 1.55;
+        line-height: 1.5;
+        font-weight: 500;
     }
 
     /* Organic Advisory Daylight Box */
@@ -137,7 +216,7 @@ st.markdown("""
     .organic-header {
         color: #15803D;
         font-size: 1.2rem;
-        font-weight: 700;
+        font-weight: 800;
         margin-bottom: 12px;
     }
     .organic-item {
@@ -150,7 +229,7 @@ st.markdown("""
     }
     .organic-label {
         color: #166534;
-        font-weight: 700;
+        font-weight: 800;
         font-size: 0.95rem;
     }
     .organic-desc {
@@ -158,6 +237,7 @@ st.markdown("""
         font-size: 0.93rem;
         margin-top: 3px;
         line-height: 1.5;
+        font-weight: 500;
     }
     
     /* District Grid Daylight Card */
@@ -187,12 +267,6 @@ st.markdown("""
         }
         .hero-subtitle {
             font-size: 0.92rem !important;
-        }
-        .winner-name {
-            font-size: 2.1rem !important;
-        }
-        .winner-conf {
-            font-size: 1.1rem !important;
         }
         .card {
             padding: 16px !important;
@@ -326,7 +400,7 @@ with tab_recommend:
             ),
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
-            font=dict(color='#334155', family='sans-serif'),
+            font=dict(color='#0F172A', family='sans-serif', size=12),
             margin=dict(l=40, r=40, t=20, b=20),
             height=320,
             showlegend=False
@@ -362,12 +436,15 @@ with tab_recommend:
             conf_advantage = response_data.get("confidence_advantage", None)
             
             top_score = top_recs[0]["confidence"]
+            raw_winner_code = top_recs[0].get("raw_crop_code", winner.lower()).lower()
+            crop_img_url = CROP_IMAGE_MAP.get(raw_winner_code, CROP_IMAGE_MAP["default"])
             
+            # 🖼️ Winning Crop Card with Background Image & High Contrast Text
             st.markdown(f"""
-            <div class="winner-card">
-                <div style="color: #166534; text-transform: uppercase; font-size: 0.95rem; font-weight: 800;">🥇 Recommended Optimal Crop</div>
-                <div class="winner-name">{winner}</div>
-                <div class="winner-conf">{top_score:.1f}% Confidence Match</div>
+            <div style="position: relative; background: linear-gradient(135deg, rgba(240, 253, 244, 0.88) 0%, rgba(220, 252, 231, 0.92) 100%), url('{crop_img_url}'); background-size: cover; background-position: center; border: 2.5px solid #22C55E; border-radius: 20px; padding: 30px 24px; text-align: center; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(34, 197, 94, 0.15);">
+                <div style="color: #14532D; text-transform: uppercase; font-size: 0.95rem; font-weight: 800; letter-spacing: 0.5px;">🥇 RECOMMENDED OPTIMAL CROP</div>
+                <div style="font-size: 2.8rem; font-weight: 900; color: #14532D; margin: 8px 0; text-shadow: 0 2px 8px rgba(255,255,255,0.9);">{winner}</div>
+                <div style="display: inline-block; background: #FFFFFF; color: #B45309; font-weight: 800; font-size: 1.2rem; padding: 6px 20px; border-radius: 30px; border: 1.5px solid #FCD34D; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">{top_score:.1f}% Confidence Match</div>
             </div>
             """, unsafe_allow_html=True)
             
@@ -385,20 +462,21 @@ with tab_recommend:
                 ),
                 text=[f"{c:.1f}%" for c in confs_list],
                 textposition='auto',
-                textfont=dict(color='#FFFFFF', size=12, family='sans-serif')
+                textfont=dict(color='#FFFFFF', size=12, family='sans-serif', weight='bold')
             ))
             fig_bar.update_layout(
-                title=dict(text="🏆 Top 3 Suitable Crops", font=dict(color='#15803D', size=16)),
-                xaxis=dict(range=[0, 105], showgrid=True, gridcolor='#E2E8F0'),
+                title=dict(text="🏆 Top 3 Suitable Crops", font=dict(color='#14532D', size=16, family='sans-serif')),
+                xaxis=dict(range=[0, 105], showgrid=True, gridcolor='#E2E8F0', tickfont=dict(color='#0F172A', size=12)),
+                yaxis=dict(tickfont=dict(color='#0F172A', size=13, family='sans-serif')),
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)',
-                font=dict(color='#1E293B'),
+                font=dict(color='#0F172A'),
                 height=210,
                 margin=dict(l=20, r=20, t=40, b=20)
             )
             st.plotly_chart(fig_bar, width="stretch")
 
-            # 💡 NEW FEATURE: Confidence Advantage & Winner vs. Runner-Up Comparison Box
+            # 💡 High-Contrast Confidence Advantage Rationale Box
             if conf_advantage:
                 st.markdown(f"""
                 <div class="advantage-box">
@@ -411,14 +489,20 @@ with tab_recommend:
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
-            else:
-                st.info(f"**🔍 AI Reasoning Analysis**: {shap_explanation}")
+
+            # 🔍 Custom High-Contrast AI Reasoning Analysis Box
+            st.markdown(f"""
+            <div class="ai-reasoning-box">
+                <div class="ai-reasoning-header">🔍 AI Reasoning Analysis</div>
+                <div class="ai-reasoning-body">{shap_explanation}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
     if response_data:
         st.markdown("---")
         org_html = f"""<div class="organic-box">
 <div class="organic-header">🌿 Zero-Synthetic Organic Profitability Advisory for '{winner}'</div>
-<p style="color: #475569; margin-bottom: 15px;">Maximize your net profit margin by reducing synthetic fertilizer expenses using proven natural farming techniques.</p>
+<p style="color: #334155; margin-bottom: 15px; font-weight: 500;">Maximize your net profit margin by reducing synthetic fertilizer expenses using proven natural farming techniques.</p>
 
 <div class="organic-item">
 <div class="organic-label">🧪 Bio-Fertilizer & Organic Nutrient Substitution:</div>
