@@ -578,8 +578,8 @@ with tab_recommend:
             if conf_advantage:
                 st.markdown(f"""<div class="advantage-box"><div class="advantage-title">💡 Why {conf_advantage['winner']} Won Over Other Options</div><div class="advantage-badge">🏆 {conf_advantage['winner']} ({conf_advantage['winner_confidence']}%) vs 🥈 {conf_advantage['runner_up']} ({conf_advantage['runner_up_confidence']}%) — Lead: +{conf_advantage['advantage_delta']}%</div><div class="advantage-text">{conf_advantage['rationale']}</div></div>""", unsafe_allow_html=True)
 
-            # 🔍 Custom High-Contrast AI Reasoning Analysis Box
-            st.markdown(f"""<div class="ai-reasoning-box"><div class="ai-reasoning-header">🔍 AI Reasoning Analysis</div><div class="ai-reasoning-body">{shap_explanation}</div></div>""", unsafe_allow_html=True)
+            # 🌾 Custom High-Contrast Agronomic Decision Rationale Box
+            st.markdown(f"""<div class="ai-reasoning-box"><div class="ai-reasoning-header">🌾 Agronomic Decision Rationale</div><div class="ai-reasoning-body">{shap_explanation}</div></div>""", unsafe_allow_html=True)
 
     if response_data:
         st.markdown("---")
