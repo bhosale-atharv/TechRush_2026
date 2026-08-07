@@ -535,7 +535,7 @@ with tab_recommend:
     except Exception:
         if IN_PROCESS_FALLBACK:
             try:
-                inp = main.CropPredictionInput(**payload)
+                inp = main.PredictionRequest(**payload)
                 response_data = main.predict_crop(inp)
             except Exception as ex:
                 st.error(f"In-process prediction error: {ex}")
