@@ -529,55 +529,24 @@ with tab_recommend:
 
             # 💡 High-Contrast Confidence Advantage Rationale Box
             if conf_advantage:
-                st.markdown(f"""
-                <div class="advantage-box">
-                    <div class="advantage-title">💡 Why {conf_advantage['winner']} Won Over Other Options</div>
-                    <div class="advantage-badge">
-                        🏆 {conf_advantage['winner']} ({conf_advantage['winner_confidence']}%) vs 🥈 {conf_advantage['runner_up']} ({conf_advantage['runner_up_confidence']}%) — Lead: +{conf_advantage['advantage_delta']}%
-                    </div>
-                    <div class="advantage-text">
-                        {conf_advantage['rationale']}
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown(f"""<div class="advantage-box"><div class="advantage-title">💡 Why {conf_advantage['winner']} Won Over Other Options</div><div class="advantage-badge">🏆 {conf_advantage['winner']} ({conf_advantage['winner_confidence']}%) vs 🥈 {conf_advantage['runner_up']} ({conf_advantage['runner_up_confidence']}%) — Lead: +{conf_advantage['advantage_delta']}%</div><div class="advantage-text">{conf_advantage['rationale']}</div></div>""", unsafe_allow_html=True)
 
             # 🔍 Custom High-Contrast AI Reasoning Analysis Box
-            st.markdown(f"""
-            <div class="ai-reasoning-box">
-                <div class="ai-reasoning-header">🔍 AI Reasoning Analysis</div>
-                <div class="ai-reasoning-body">{shap_explanation}</div>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(f"""<div class="ai-reasoning-box"><div class="ai-reasoning-header">🔍 AI Reasoning Analysis</div><div class="ai-reasoning-body">{shap_explanation}</div></div>""", unsafe_allow_html=True)
 
     if response_data:
         st.markdown("---")
-        org_html = f"""<div class="organic-box-modern">
-<div class="organic-header-modern">🌿 Zero-Synthetic Organic Profitability Advisory for '{winner}'</div>
-<p style="color: #475569; margin-bottom: 18px; font-weight: 500;">Maximize your net profit margin by reducing synthetic fertilizer expenses using proven natural farming techniques.</p>
+        st.markdown(f"### 🌿 Zero-Synthetic Organic Profitability Advisory for '{winner}'")
+        st.caption("Maximize your net profit margin by reducing synthetic fertilizer expenses using proven natural farming techniques.")
+        
+        ad1, ad2 = st.columns(2)
+        with ad1:
+            st.markdown(f"""<div class="organic-card-item"><div class="organic-card-label">🧪 Bio-Fertilizer Substitution:</div><div class="organic-card-desc">{organic_advisory['organic_fertilizers']}</div></div>""", unsafe_allow_html=True)
+            st.markdown(f"""<div class="organic-card-item"><div class="organic-card-label">🌱 Natural Intercropping & N-Fixation:</div><div class="organic-card-desc">{organic_advisory['intercropping_profit']}</div></div>""", unsafe_allow_html=True)
 
-<div class="organic-grid">
-    <div class="organic-card-item">
-        <div class="organic-card-label">🧪 Bio-Fertilizer Substitution:</div>
-        <div class="organic-card-desc">{organic_advisory['organic_fertilizers']}</div>
-    </div>
-
-    <div class="organic-card-item">
-        <div class="organic-card-label">🐞 Biological Pest Control:</div>
-        <div class="organic-card-desc">{organic_advisory['natural_pest_control']}</div>
-    </div>
-
-    <div class="organic-card-item">
-        <div class="organic-card-label">🌱 Natural Intercropping & N-Fixation:</div>
-        <div class="organic-card-desc">{organic_advisory['intercropping_profit']}</div>
-    </div>
-
-    <div class="organic-card-item">
-        <div class="organic-card-label">💰 Profit Maximization Strategy:</div>
-        <div class="organic-card-desc">{organic_advisory['max_profit_tip']}</div>
-    </div>
-</div>
-</div>"""
-        st.markdown(org_html, unsafe_allow_html=True)
+        with ad2:
+            st.markdown(f"""<div class="organic-card-item"><div class="organic-card-label">🐞 Biological Pest Control:</div><div class="organic-card-desc">{organic_advisory['natural_pest_control']}</div></div>""", unsafe_allow_html=True)
+            st.markdown(f"""<div class="organic-card-item"><div class="organic-card-label">💰 Profit Maximization Strategy:</div><div class="organic-card-desc">{organic_advisory['max_profit_tip']}</div></div>""", unsafe_allow_html=True)
 
 # TAB 2: Searchable Geographical Representation & GIS Map
 with tab_map:
