@@ -380,9 +380,38 @@ with tab_map:
     except Exception as e:
         pass
         
+    df_map = pd.DataFrame()
     if map_data_res:
         df_map = pd.DataFrame(map_data_res)
-        
+    elif loc_db:
+        map_points = []
+        for state, districts in loc_db.items():
+            for dist_name, data in districts.items():
+                map_points.append({
+                    "state": state,
+                    "district": dist_name,
+                    "lat": data.get("lat", 19.0),
+                    "lon": data.get("lon", 75.0),
+                    "elevation_m": data.get("elevation_m", 500),
+                    "soil_type": data.get("soil_type", "Medium Black"),
+                    "primary_crop": data.get("primary_crop", "Crops"),
+                    "N": data.get("N", 90),
+                    "P": data.get("P", 50),
+                    "K": data.get("K", 50),
+                    "rainfall": data.get("rainfall", 100),
+                    "market_pi": data.get("market_pi", 8.0)
+                })
+        df_map = pd.DataFrame(map_points)
+
+    if not df_map.empty:
+        # Populate N, P, K from loc_db if missing from backend response
+        if "N" not in df_map.columns:
+            df_map["N"] = df_map.apply(lambda r: loc_db.get(r.get("state",""), {}).get(r.get("district",""), {}).get("N", "-") if loc_db else "-", axis=1)
+        if "P" not in df_map.columns:
+            df_map["P"] = df_map.apply(lambda r: loc_db.get(r.get("state",""), {}).get(r.get("district",""), {}).get("P", "-") if loc_db else "-", axis=1)
+        if "K" not in df_map.columns:
+            df_map["K"] = df_map.apply(lambda r: loc_db.get(r.get("state",""), {}).get(r.get("district",""), {}).get("K", "-") if loc_db else "-", axis=1)
+
         # 🔍 Search & Filter Bar (No Division-Wise Filtering)
         sf1, sf2 = st.columns([1.5, 1])
         with sf1:
@@ -403,23 +432,18 @@ with tab_map:
         st.info(f"Showing **{len(filtered_map_df)}** of **{len(df_map)}** essential regional district data points.")
         
         if not filtered_map_df.empty:
+            # Dynamically build hover_data dictionary using only existing columns
+            hover_dict = {"lat": False, "lon": False}
+            for col in ["state", "primary_crop", "N", "P", "K", "soil_type", "elevation_m", "rainfall"]:
+                if col in filtered_map_df.columns:
+                    hover_dict[col] = True
+
             fig_geo = px.scatter_mapbox(
                 filtered_map_df,
                 lat="lat",
                 lon="lon",
                 hover_name="district",
-                hover_data={
-                    "state": True,
-                    "primary_crop": True,
-                    "N": True,
-                    "P": True,
-                    "K": True,
-                    "soil_type": True,
-                    "elevation_m": True,
-                    "rainfall": True,
-                    "lat": False,
-                    "lon": False
-                },
+                hover_data=hover_dict,
                 color="primary_crop",
                 size="elevation_m",
                 size_max=28,
