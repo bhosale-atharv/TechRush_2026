@@ -338,15 +338,51 @@ def predict_crop(request: PredictionRequest):
     feature_names = input_data.columns.tolist()
     feature_val_dict = input_data.iloc[0].to_dict()
     
+    FEATURE_AGRONOMIC_MAP = {
+        "N": "Nitrogen level ({val} kg/ha)",
+        "P": "Phosphorus level ({val} kg/ha)",
+        "K": "Potassium level ({val} kg/ha)",
+        "temperature": "Mean temperature ({val} °C)",
+        "humidity": "Relative humidity ({val}%)",
+        "ph": "Soil pH level ({val})",
+        "rainfall": "Annual rainfall ({val} mm)",
+        "soil_ec": "Soil Electrical Conductivity ({val} dS/m)",
+        "market_profitability_index": "Market Commercial Demand Index ({val}/10)",
+        "elevation_m": "Terrain elevation ({val} m)"
+    }
+
+    FEATURE_CROP_REASONING = {
+        "N": "promotes vital canopy development and biomass synthesis",
+        "P": "supports strong root establishment and early flowering",
+        "K": "drives heavy rhizome, fruit, and tuber starch accumulation",
+        "temperature": "aligns with the crop's thermal growth window",
+        "humidity": "provides favorable transpiration and micro-climate conditions",
+        "ph": "ensures optimal soil nutrient availability and root uptake",
+        "rainfall": "meets the crop's physiological water requirements",
+        "soil_ec": "indicates favorable soil salinity bounds for root absorption",
+        "market_profitability_index": "reflects strong commercial price resilience",
+        "elevation_m": "matches the crop's altitude and topographical preference"
+    }
+
     impact_pairs = list(zip(feature_names, crop_shap, [feature_val_dict[f] for f in feature_names]))
-    impact_pairs.sort(key=lambda x: abs(x[1]), reverse=True)
+    impact_pairs.sort(key=lambda x: x[1], reverse=True)
     
-    top_drivers = []
+    driver_phrases = []
     for feat, shap_val, orig_val in impact_pairs[:3]:
-        direction = "strongly favored" if shap_val > 0 else "lowered match for"
-        top_drivers.append(f"{feat} ({orig_val}) {direction}")
-        
-    shap_explanation = f"AI Reasoning Engine ({winning_crop}): Key driving factors were " + ", ".join(top_drivers) + "."
+        feat_desc = FEATURE_AGRONOMIC_MAP.get(feat, f"{feat} ({orig_val})").format(val=orig_val)
+        reason = FEATURE_CROP_REASONING.get(feat, "supports crop performance")
+        if shap_val > 0:
+            driver_phrases.append(f"<b>{feat_desc}</b> which {reason}")
+        else:
+            driver_phrases.append(f"<b>{feat_desc}</b>")
+            
+    if len(driver_phrases) >= 3:
+        shap_explanation = f"Agronomic AI Model Rationale for <b>{winning_crop}</b>: High suitability is driven by your {driver_phrases[0]}, your {driver_phrases[1]}, alongside your {driver_phrases[2]}."
+    elif len(driver_phrases) >= 2:
+        shap_explanation = f"Agronomic AI Model Rationale for <b>{winning_crop}</b>: High suitability is driven by your {driver_phrases[0]} and your {driver_phrases[1]}."
+    else:
+        shap_explanation = f"Agronomic AI Model Rationale for <b>{winning_crop}</b>: High suitability is aligned with your field's soil and climate telemetry."
+
     if active_constraints:
         shap_explanation += f" Applied real-world modifiers: {'; '.join(active_constraints)}."
         
