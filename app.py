@@ -149,6 +149,33 @@ st.markdown("""
         border-color: #00FF9D;
         transform: translateY(-2px);
     }
+    
+    /* Mobile Responsive UI Breakpoints */
+    @media (max-width: 768px) {
+        .hero-header {
+            padding: 16px 20px !important;
+            border-radius: 14px !important;
+        }
+        .hero-title {
+            font-size: 1.8rem !important;
+        }
+        .hero-subtitle {
+            font-size: 0.92rem !important;
+        }
+        .winner-name {
+            font-size: 2.1rem !important;
+        }
+        .winner-conf {
+            font-size: 1.1rem !important;
+        }
+        .card {
+            padding: 16px !important;
+            border-radius: 14px !important;
+        }
+        .organic-box {
+            padding: 16px 18px !important;
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
