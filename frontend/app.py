@@ -205,7 +205,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Fetch Location Database
-@st.cache_data(ttl=600)
 def fetch_location_db():
     try:
         res = requests.get(f"{BACKEND_URL}/universal-locations")

@@ -10,8 +10,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 app = FastAPI(
     title="CropPro.Ai Precision Intelligence API",
     description="Audited ML Engine with 33 Crops, Factual Maharashtra Regional Agronomy (Sugarcane, Jowar, Bajra, Maize, Cotton, Soybean, Paddy, Pigeonpea, Onion, Banana, Grapes, Mango, Cashew), Regional GIS Data, and Organic Advisory",
@@ -27,10 +25,9 @@ app.add_middleware(
 )
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT_DIR = os.path.dirname(BASE_DIR)
 
-model_path = os.path.join(ROOT_DIR, "xgb_model.pkl")
-encoder_path = os.path.join(ROOT_DIR, "label_encoder.pkl")
+model_path = os.path.join(BASE_DIR, "xgb_model.pkl")
+encoder_path = os.path.join(BASE_DIR, "label_encoder.pkl")
 
 if not os.path.exists(model_path):
     model_path = "xgb_model.pkl"
@@ -273,10 +270,6 @@ def get_crop_map_data():
                 "N": data["N"],
                 "P": data["P"],
                 "K": data["K"],
-                "rainfall": data["rainfall"],
-                "market_pi": data["market_pi"]
-            })
-    return {"status": "success", "total_points": len(map_points), "data": map_points}
                 "rainfall": data["rainfall"],
                 "market_pi": data["market_pi"]
             })
