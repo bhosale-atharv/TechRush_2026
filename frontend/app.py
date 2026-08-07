@@ -15,35 +15,101 @@ st.set_page_config(
 
 # High-Quality Crop Background Image Mapping
 CROP_IMAGE_MAP = {
+    # Spices & Root Crops
     "ginger": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=1000&q=80",
     "turmeric": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=1000&q=80",
+    "onion": "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cf?auto=format&fit=crop&w=1000&q=80",
+    
+    # Cash & Commercial Crops
     "sugarcane": "https://images.unsplash.com/photo-1595166299106-932f91a27e7d?auto=format&fit=crop&w=1000&q=80",
     "cotton": "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&w=1000&q=80",
     "soybean": "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=1000&q=80",
+    "jute": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80",
+    
+    # Grains & Cereals
     "rice": "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=1000&q=80",
     "wheat": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=1000&q=80",
     "maize": "https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=1000&q=80",
     "jowar": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80",
     "bajra": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80",
-    "onion": "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cf?auto=format&fit=crop&w=1000&q=80",
+    "barley": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=1000&q=80",
+    
+    # Fruits & Plantation
     "banana": "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=1000&q=80",
     "grapes": "https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&w=1000&q=80",
     "mango": "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=1000&q=80",
     "cashew": "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=1000&q=80",
     "pomegranate": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=1000&q=80",
+    "orange": "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&w=1000&q=80",
+    "sweetlime": "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&w=1000&q=80",
+    "papaya": "https://images.unsplash.com/photo-1517260739337-6799d239ce83?auto=format&fit=crop&w=1000&q=80",
+    "coconut": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=1000&q=80",
+    "apple": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=1000&q=80",
+    "coffee": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80",
+    "tea": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=1000&q=80",
+    
+    # Pulses
     "chickpea": "https://images.unsplash.com/photo-1515543904379-3d757afe72e3?auto=format&fit=crop&w=1000&q=80",
     "pigeonpeas": "https://images.unsplash.com/photo-1515543904379-3d757afe72e3?auto=format&fit=crop&w=1000&q=80",
+    "kidneybeans": "https://images.unsplash.com/photo-1515543904379-3d757afe72e3?auto=format&fit=crop&w=1000&q=80",
+    "mothbeans": "https://images.unsplash.com/photo-1515543904379-3d757afe72e3?auto=format&fit=crop&w=1000&q=80",
+    "mungbean": "https://images.unsplash.com/photo-1515543904379-3d757afe72e3?auto=format&fit=crop&w=1000&q=80",
+    "blackgram": "https://images.unsplash.com/photo-1515543904379-3d757afe72e3?auto=format&fit=crop&w=1000&q=80",
+    "lentil": "https://images.unsplash.com/photo-1515543904379-3d757afe72e3?auto=format&fit=crop&w=1000&q=80",
+    
     "default": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80"
 }
 
-# Custom CSS - Daylight Warm Agricultural Theme with High Contrast Overrides
+# Custom CSS - Complete Daylight Warm Theme with High-Contrast Sidebar Overrides
 st.markdown("""
 <style>
-    /* Daylight Clean Canvas */
+    /* Daylight Clean Main Canvas */
     .stApp {
-        background-color: #F8FAFC;
-        color: #1E293B;
+        background-color: #F8FAFC !important;
+        color: #1E293B !important;
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    /* Sidebar Daylight Theme Overrides */
+    [data-testid="stSidebar"] {
+        background-color: #F1F5F9 !important;
+        border-right: 1px solid #CBD5E1 !important;
+    }
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3, 
+    [data-testid="stSidebar"] h4 {
+        color: #14532D !important;
+        font-weight: 800 !important;
+    }
+    [data-testid="stSidebar"] p, 
+    [data-testid="stSidebar"] span, 
+    [data-testid="stSidebar"] label {
+        color: #0F172A !important;
+        font-weight: 700 !important;
+        font-size: 0.92rem !important;
+    }
+    [data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] {
+        background-color: #FFFFFF !important;
+        color: #0F172A !important;
+        border: 1.5px solid #94A3B8 !important;
+        border-radius: 8px !important;
+    }
+    [data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] * {
+        color: #0F172A !important;
+        font-weight: 700 !important;
+    }
+    [data-testid="stSidebar"] input {
+        background-color: #FFFFFF !important;
+        color: #0F172A !important;
+        border: 1.5px solid #94A3B8 !important;
+        border-radius: 8px !important;
+        font-weight: 700 !important;
+    }
+    [data-testid="stSidebar"] button {
+        background-color: #FFFFFF !important;
+        color: #0F172A !important;
+        border: 1px solid #94A3B8 !important;
     }
 
     /* Strict High-Contrast Metric Overrides */
@@ -86,18 +152,6 @@ st.markdown("""
     }
     p, span, div {
         color: #1E293B;
-    }
-    
-    /* Info Alert Boxes Override */
-    [data-testid="stAlert"] {
-        background-color: #F0FDF4 !important;
-        border: 1px solid #86EFAC !important;
-        color: #14532D !important;
-        border-radius: 14px !important;
-    }
-    [data-testid="stAlert"] p {
-        color: #14532D !important;
-        font-weight: 600 !important;
     }
     
     /* Clean Hero Header Banner */
@@ -439,7 +493,7 @@ with tab_recommend:
             raw_winner_code = top_recs[0].get("raw_crop_code", winner.lower()).lower()
             crop_img_url = CROP_IMAGE_MAP.get(raw_winner_code, CROP_IMAGE_MAP["default"])
             
-            # 🖼️ Winning Crop Card with Background Image & High Contrast Text
+            # 🖼️ Winning Crop Card with Verified Background Image & High Contrast Text
             st.markdown(f"""
             <div style="position: relative; background: linear-gradient(135deg, rgba(240, 253, 244, 0.88) 0%, rgba(220, 252, 231, 0.92) 100%), url('{crop_img_url}'); background-size: cover; background-position: center; border: 2.5px solid #22C55E; border-radius: 20px; padding: 30px 24px; text-align: center; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(34, 197, 94, 0.15);">
                 <div style="color: #14532D; text-transform: uppercase; font-size: 0.95rem; font-weight: 800; letter-spacing: 0.5px;">🥇 RECOMMENDED OPTIMAL CROP</div>
