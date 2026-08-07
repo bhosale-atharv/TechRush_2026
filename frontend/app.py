@@ -65,6 +65,31 @@ st.markdown("""
         border: 1px solid #94A3B8 !important;
     }
 
+    /* BaseWeb Selectbox Dropdown Menu & Popover Light Theme Styling */
+    div[data-baseweb="popover"],
+    div[data-baseweb="menu"],
+    ul[role="listbox"] {
+        background-color: #FFFFFF !important;
+        border: 1.5px solid #CBD5E1 !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
+        border-radius: 10px !important;
+    }
+    li[role="option"],
+    div[data-baseweb="menu"] li,
+    ul[role="listbox"] li,
+    div[data-baseweb="menu"] div {
+        background-color: #FFFFFF !important;
+        color: #0F172A !important;
+        font-weight: 700 !important;
+        font-size: 0.95rem !important;
+    }
+    li[role="option"]:hover,
+    li[aria-selected="true"],
+    div[data-baseweb="menu"] li:hover {
+        background-color: #ECFDF5 !important;
+        color: #047857 !important;
+    }
+
     /* Strict High-Contrast Metric Overrides */
     [data-testid="stMetricValue"] {
         color: #0F172A !important;
