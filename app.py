@@ -379,7 +379,15 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-BACKEND_URL = "http://localhost:8000"
+import os
+
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+
+try:
+    import main
+    IN_PROCESS_FALLBACK = True
+except Exception:
+    IN_PROCESS_FALLBACK = False
 
 # Session State
 if "logged_in" not in st.session_state:
@@ -407,11 +415,12 @@ st.markdown("""
 # Fetch Location Database
 def fetch_location_db():
     try:
-        res = requests.get(f"{BACKEND_URL}/universal-locations")
+        res = requests.get(f"{BACKEND_URL}/universal-locations", timeout=2)
         if res.status_code == 200:
             return res.json()["database"]
-    except Exception as e:
-        pass
+    except Exception:
+        if IN_PROCESS_FALLBACK:
+            return main.EXPANDED_DISTRICTS_DB
     return None
 
 loc_db = fetch_location_db()
@@ -520,11 +529,18 @@ with tab_recommend:
 
     response_data = None
     try:
-        res = requests.post(f"{BACKEND_URL}/predict", json=payload)
+        res = requests.post(f"{BACKEND_URL}/predict", json=payload, timeout=3)
         if res.status_code == 200:
             response_data = res.json()
-    except Exception as e:
-        st.error("Error communicating with Backend API.")
+    except Exception:
+        if IN_PROCESS_FALLBACK:
+            try:
+                inp = main.CropPredictionInput(**payload)
+                response_data = main.predict_crop(inp)
+            except Exception as ex:
+                st.error(f"In-process prediction error: {ex}")
+        else:
+            st.error("Error communicating with Backend API.")
 
     with col_right:
         if response_data:
