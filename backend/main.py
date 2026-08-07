@@ -353,13 +353,55 @@ def predict_crop(request: PredictionRequest):
     feature_impacts = {feat: float(shap_val) for feat, shap_val, _ in impact_pairs}
     organic_advisory = ORGANIC_ADVISORY_DB.get(winning_raw.lower(), DEFAULT_ADVISORY)
     
+    # Calculate Confidence Advantage & Winner vs. Runner-Up Rationale
+    confidence_advantage = None
+    if len(top_recommendations) >= 2:
+        winner = top_recommendations[0]
+        runner_up = top_recommendations[1]
+        delta = round(winner["confidence"] - runner_up["confidence"], 2)
+        
+        # Calculate feature attribution differential
+        runner_up_raw = runner_up["raw_crop_code"]
+        try:
+            runner_up_idx = int(label_encoder.transform([runner_up_raw])[0])
+            if len(shap_vals.shape) == 3:
+                runner_shap = shap_vals.values[0, :, runner_up_idx]
+            else:
+                runner_shap = crop_shap
+        except Exception:
+            runner_shap = np.zeros(len(feature_names))
+            
+        diff_shap = crop_shap - runner_shap
+        diff_pairs = list(zip(feature_names, diff_shap, [feature_val_dict[f] for f in feature_names]))
+        diff_pairs.sort(key=lambda x: x[1], reverse=True)
+        
+        positive_diffs = [p for p in diff_pairs if p[1] > 0]
+        if not positive_diffs:
+            positive_diffs = diff_pairs[:2]
+            
+        diff_reasons = []
+        for feat, diff_val, orig_val in positive_diffs[:2]:
+            diff_reasons.append(f"field's {feat} ({orig_val}) provided a stronger agronomic match for {winner['crop']}")
+            
+        reason_text = f"{winner['crop']} achieved a +{delta}% higher confidence lead over runner-up {runner_up['crop']} because your " + " and ".join(diff_reasons) + "."
+        
+        confidence_advantage = {
+            "winner": winner["crop"],
+            "winner_confidence": winner["confidence"],
+            "runner_up": runner_up["crop"],
+            "runner_up_confidence": runner_up["confidence"],
+            "advantage_delta": delta,
+            "rationale": reason_text
+        }
+
     return {
         "top_recommendations": top_recommendations,
         "winning_crop": winning_crop,
         "shap_explanation": shap_explanation,
         "feature_impacts": feature_impacts,
         "organic_advisory": organic_advisory,
-        "active_constraints": active_constraints
+        "active_constraints": active_constraints,
+        "confidence_advantage": confidence_advantage
     }
 
 if __name__ == "__main__":

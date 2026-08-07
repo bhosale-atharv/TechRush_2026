@@ -13,140 +13,166 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS - Dark Emerald Glassmorphism Theme
+# Custom CSS - Daylight Warm Agricultural Theme
 st.markdown("""
 <style>
-    /* Dark Forest Emerald Canvas */
+    /* Daylight Clean Canvas */
     .stApp {
-        background: radial-gradient(circle at 50% -20%, #0D2C20 0%, #05140D 60%, #020A06 100%);
-        color: #E2EFEA;
+        background-color: #F8FAFC;
+        color: #1E293B;
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
     
-    /* Hero Header Banner */
+    /* Clean Hero Header Banner */
     .hero-header {
-        background: linear-gradient(135deg, rgba(16, 54, 38, 0.85) 0%, rgba(6, 26, 18, 0.95) 100%);
-        border: 1px solid rgba(0, 255, 157, 0.25);
-        border-radius: 20px;
+        background: linear-gradient(135deg, #ECFDF5 0%, #E6F4EA 100%);
+        border: 1px solid #A7F3D0;
+        border-radius: 18px;
         padding: 24px 32px;
         margin-bottom: 24px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(12px);
+        box-shadow: 0 4px 15px rgba(22, 163, 74, 0.06);
         transition: all 0.3s ease;
-    }
-    .hero-header:hover {
-        border-color: rgba(0, 255, 157, 0.5);
-        box-shadow: 0 0 25px rgba(0, 255, 157, 0.15);
     }
     .hero-title {
-        color: #00FF9D;
-        font-size: 2.5rem;
-        font-weight: 900;
+        color: #14532D;
+        font-size: 2.3rem;
+        font-weight: 800;
         margin: 0;
         letter-spacing: -0.5px;
-        text-shadow: 0 0 20px rgba(0, 255, 157, 0.25);
     }
     .hero-subtitle {
-        color: #A3C9B8;
-        font-size: 1.08rem;
-        margin-top: 6px;
+        color: #166534;
+        font-size: 1.02rem;
+        margin-top: 4px;
+        font-weight: 500;
     }
     
-    /* Glassmorphism Dark Cards with Dynamic Hover Physics */
+    /* Clean Daylight Cards */
     .card {
-        background: rgba(12, 36, 26, 0.65);
-        border: 1px solid rgba(46, 204, 113, 0.2);
-        border-radius: 18px;
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 16px;
         padding: 22px;
         margin-bottom: 20px;
-        backdrop-filter: blur(10px);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        transition: all 0.2s ease;
     }
     .card:hover {
-        transform: translateY(-4px);
-        border-color: rgba(0, 255, 157, 0.4);
-        box-shadow: 0 10px 30px rgba(0, 255, 157, 0.1);
+        border-color: #86EFAC;
+        box-shadow: 0 6px 24px rgba(22, 163, 74, 0.08);
     }
     .card-header {
-        color: #2ECC71;
-        font-size: 1.25rem;
+        color: #15803D;
+        font-size: 1.2rem;
         font-weight: 700;
-        margin-bottom: 14px;
-    }
-    
-    /* Winning Crop Banner */
-    .winner-card {
-        background: linear-gradient(135deg, rgba(20, 70, 48, 0.9) 0%, rgba(8, 32, 21, 0.95) 100%);
-        border: 2px solid #00FF9D;
-        border-radius: 20px;
-        padding: 26px;
-        text-align: center;
-        margin-bottom: 20px;
-        box-shadow: 0 0 30px rgba(0, 255, 157, 0.15);
-        transition: all 0.3s ease;
-    }
-    .winner-card:hover {
-        transform: scale(1.01);
-        box-shadow: 0 0 40px rgba(0, 255, 157, 0.25);
-    }
-    .winner-name {
-        font-size: 2.7rem;
-        font-weight: 900;
-        color: #00FF9D;
-        margin: 8px 0;
-        text-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
-    }
-    .winner-conf {
-        font-size: 1.35rem;
-        color: #F1C40F;
-        font-weight: 800;
-    }
-
-    /* Organic Advisory Dark Glass Card */
-    .organic-box {
-        background: linear-gradient(135deg, rgba(18, 52, 36, 0.9) 0%, rgba(8, 28, 19, 0.95) 100%);
-        border-left: 6px solid #F1C40F;
-        border-radius: 16px;
-        padding: 24px 28px;
-        margin-top: 24px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    }
-    .organic-header {
-        color: #F1C40F;
-        font-size: 1.28rem;
-        font-weight: 800;
-        margin-bottom: 14px;
-    }
-    .organic-item {
-        background: rgba(0, 0, 0, 0.35);
-        border: 1px solid rgba(241, 196, 15, 0.25);
-        border-radius: 12px;
-        padding: 14px 18px;
         margin-bottom: 12px;
     }
-    .organic-label {
-        color: #00FF9D;
-        font-weight: 700;
-        font-size: 0.98rem;
+    
+    /* Winning Crop Daylight Card */
+    .winner-card {
+        background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+        border: 2px solid #22C55E;
+        border-radius: 18px;
+        padding: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+        box-shadow: 0 6px 20px rgba(34, 197, 94, 0.12);
     }
-    .organic-desc {
-        color: #D5E5DE;
+    .winner-name {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #15803D;
+        margin: 6px 0;
+    }
+    .winner-conf {
+        font-size: 1.25rem;
+        color: #D97706;
+        font-weight: 700;
+    }
+
+    /* Confidence Advantage Rationale Box */
+    .advantage-box {
+        background: #FFFBEB;
+        border: 1px solid #FCD34D;
+        border-left: 5px solid #F59E0B;
+        border-radius: 14px;
+        padding: 18px 22px;
+        margin-top: 16px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.05);
+    }
+    .advantage-title {
+        color: #92400E;
+        font-size: 1.08rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    .advantage-badge {
+        display: inline-block;
+        background: #FEF3C7;
+        color: #B45309;
+        font-weight: 700;
+        font-size: 0.88rem;
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-bottom: 8px;
+        border: 1px solid #FDE68A;
+    }
+    .advantage-text {
+        color: #78350F;
         font-size: 0.95rem;
-        margin-top: 4px;
         line-height: 1.55;
     }
+
+    /* Organic Advisory Daylight Box */
+    .organic-box {
+        background: #F0FDF4;
+        border: 1px solid #BBF7D0;
+        border-left: 5px solid #16A34A;
+        border-radius: 16px;
+        padding: 22px 26px;
+        margin-top: 20px;
+        box-shadow: 0 4px 15px rgba(22, 163, 74, 0.05);
+    }
+    .organic-header {
+        color: #15803D;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+    .organic-item {
+        background: #FFFFFF;
+        border: 1px solid #DCFCE7;
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .organic-label {
+        color: #166534;
+        font-weight: 700;
+        font-size: 0.95rem;
+    }
+    .organic-desc {
+        color: #334155;
+        font-size: 0.93rem;
+        margin-top: 3px;
+        line-height: 1.5;
+    }
     
-    /* District Card Grid */
+    /* District Grid Daylight Card */
     .district-grid-card {
-        background: rgba(14, 40, 29, 0.85);
-        border: 1px solid rgba(0, 255, 157, 0.25);
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
         border-radius: 14px;
         padding: 16px 20px;
         margin-bottom: 14px;
-        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        transition: all 0.2s ease;
     }
     .district-grid-card:hover {
-        border-color: #00FF9D;
+        border-color: #22C55E;
+        box-shadow: 0 4px 16px rgba(34, 197, 94, 0.1);
         transform: translateY(-2px);
     }
     
@@ -196,7 +222,7 @@ st.markdown("""
             <p class="hero-subtitle">Precision Agriculture Decision Engine & Agro-Climatic Intelligence</p>
         </div>
         <div style="text-align: right;">
-            <span style="background: rgba(0, 255, 157, 0.15); border: 1px solid #00FF9D; color: #00FF9D; padding: 8px 18px; border-radius: 30px; font-weight: 700; font-size: 0.9rem;">
+            <span style="background: #DCFCE7; border: 1px solid #86EFAC; color: #15803D; padding: 8px 18px; border-radius: 30px; font-weight: 700; font-size: 0.9rem;">
                 ⚡ CropPro.Ai Model Active
             </span>
         </div>
@@ -264,7 +290,7 @@ with tab_recommend:
     col_left, col_right = st.columns([1, 1.15])
 
     with col_left:
-        st.markdown("""<div class="card"><div class="card-header">📊 Soil & Climate Telemetry</div></div>""", unsafe_allow_html=True)
+        st.markdown("""<div class="card"><div class="card-header">📊 Soil & Climate Telemetry Summary</div></div>""", unsafe_allow_html=True)
         
         m1, m2, m3 = st.columns(3)
         m1.metric("N-P-K Ratio", f"{int(n_val)}-{int(p_val)}-{int(k_val)}")
@@ -276,7 +302,7 @@ with tab_recommend:
         m5.metric("Soil EC", f"{ec_val:.1f} dS/m")
         m6.metric("Elevation", f"{int(elev_val)} m")
 
-        # Dark Neon Radar Spider Chart
+        # Daylight Radar Spider Chart
         categories = ['Nitrogen', 'Phosphorus', 'Potassium', 'Temperature', 'Humidity', 'Rainfall', 'Soil EC', 'Elevation']
         values = [
             n_val / 200 * 100, p_val / 200 * 100, k_val / 250 * 100,
@@ -290,17 +316,17 @@ with tab_recommend:
             theta=categories,
             fill='toself',
             name='Farm Telemetry',
-            line_color='#00FF9D',
-            fillcolor='rgba(0, 255, 157, 0.25)'
+            line_color='#16A34A',
+            fillcolor='rgba(22, 163, 74, 0.15)'
         ))
         fig_radar.update_layout(
             polar=dict(
                 radialaxis=dict(visible=True, range=[0, 100], showticklabels=False),
-                bgcolor='rgba(12, 36, 26, 0.5)'
+                bgcolor='#FAFAFA'
             ),
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
-            font=dict(color='#A0C4B4'),
+            font=dict(color='#334155', family='sans-serif'),
             margin=dict(l=40, r=40, t=20, b=20),
             height=320,
             showlegend=False
@@ -333,10 +359,17 @@ with tab_recommend:
             shap_explanation = response_data["shap_explanation"]
             feature_impacts = response_data["feature_impacts"]
             organic_advisory = response_data["organic_advisory"]
+            conf_advantage = response_data.get("confidence_advantage", None)
             
             top_score = top_recs[0]["confidence"]
             
-            st.markdown(f"""<div class="winner-card"><div style="color: #A0C4B4; text-transform: uppercase; font-size: 0.95rem; font-weight: 800;">🥇 Recommended Optimal Crop</div><div class="winner-name">{winner}</div><div class="winner-conf">{top_score:.1f}% Confidence Match</div></div>""", unsafe_allow_html=True)
+            st.markdown(f"""
+            <div class="winner-card">
+                <div style="color: #166534; text-transform: uppercase; font-size: 0.95rem; font-weight: 800;">🥇 Recommended Optimal Crop</div>
+                <div class="winner-name">{winner}</div>
+                <div class="winner-conf">{top_score:.1f}% Confidence Match</div>
+            </div>
+            """, unsafe_allow_html=True)
             
             crops_list = [r["crop"] for r in top_recs[::-1]]
             confs_list = [r["confidence"] for r in top_recs[::-1]]
@@ -347,29 +380,45 @@ with tab_recommend:
                 orientation='h',
                 marker=dict(
                     color=confs_list,
-                    colorscale=[[0, '#1E513B'], [0.5, '#2ECC71'], [1.0, '#00FF9D']],
-                    line=dict(color='#00FF9D', width=1.5)
+                    colorscale=[[0, '#86EFAC'], [0.5, '#22C55E'], [1.0, '#15803D']],
+                    line=dict(color='#166534', width=1.2)
                 ),
                 text=[f"{c:.1f}%" for c in confs_list],
                 textposition='auto',
-                textfont=dict(color='#051A10', size=13, family='sans-serif')
+                textfont=dict(color='#FFFFFF', size=12, family='sans-serif')
             ))
             fig_bar.update_layout(
-                title=dict(text="🏆 Top 3 Suitable Crops", font=dict(color='#00FF9D', size=16)),
-                xaxis=dict(range=[0, 105], showgrid=True, gridcolor='rgba(255,255,255,0.1)'),
+                title=dict(text="🏆 Top 3 Suitable Crops", font=dict(color='#15803D', size=16)),
+                xaxis=dict(range=[0, 105], showgrid=True, gridcolor='#E2E8F0'),
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)',
-                font=dict(color='#E0EAE5'),
+                font=dict(color='#1E293B'),
                 height=210,
                 margin=dict(l=20, r=20, t=40, b=20)
             )
             st.plotly_chart(fig_bar, width="stretch")
 
+            # 💡 NEW FEATURE: Confidence Advantage & Winner vs. Runner-Up Comparison Box
+            if conf_advantage:
+                st.markdown(f"""
+                <div class="advantage-box">
+                    <div class="advantage-title">💡 Why {conf_advantage['winner']} Won Over Other Options</div>
+                    <div class="advantage-badge">
+                        🏆 {conf_advantage['winner']} ({conf_advantage['winner_confidence']}%) vs 🥈 {conf_advantage['runner_up']} ({conf_advantage['runner_up_confidence']}%) — Lead: +{conf_advantage['advantage_delta']}%
+                    </div>
+                    <div class="advantage-text">
+                        {conf_advantage['rationale']}
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.info(f"**🔍 AI Reasoning Analysis**: {shap_explanation}")
+
     if response_data:
         st.markdown("---")
         org_html = f"""<div class="organic-box">
 <div class="organic-header">🌿 Zero-Synthetic Organic Profitability Advisory for '{winner}'</div>
-<p style="color: #D5E5DE; margin-bottom: 15px;">Maximize your net profit margin by reducing synthetic fertilizer expenses using proven natural farming techniques.</p>
+<p style="color: #475569; margin-bottom: 15px;">Maximize your net profit margin by reducing synthetic fertilizer expenses using proven natural farming techniques.</p>
 
 <div class="organic-item">
 <div class="organic-label">🧪 Bio-Fertilizer & Organic Nutrient Substitution:</div>
@@ -395,8 +444,8 @@ with tab_recommend:
 
 # TAB 2: Searchable Geographical Representation & GIS Map
 with tab_map:
-    st.markdown("<h3 style='color: #00FF9D;'>🗺️ Searchable GIS Regional Agro-Climatic Map & Telemetry Explorer</h3>", unsafe_allow_html=True)
-    st.markdown("<p style='color: #A3C9B8;'>Search by District name or Primary Crop belt to easily locate essential regional data.</p>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #14532D;'>🗺️ Searchable GIS Regional Agro-Climatic Map & Telemetry Explorer</h3>", unsafe_allow_html=True)
+    st.markdown("<p style='color: #475569;'>Search by District name or Primary Crop belt to easily locate essential regional data.</p>", unsafe_allow_html=True)
     
     map_data_res = None
     try:
@@ -430,7 +479,6 @@ with tab_map:
         df_map = pd.DataFrame(map_points)
 
     if not df_map.empty:
-        # Populate N, P, K from loc_db if missing from backend response
         if "N" not in df_map.columns:
             df_map["N"] = df_map.apply(lambda r: loc_db.get(r.get("state",""), {}).get(r.get("district",""), {}).get("N", "-") if loc_db else "-", axis=1)
         if "P" not in df_map.columns:
@@ -438,7 +486,7 @@ with tab_map:
         if "K" not in df_map.columns:
             df_map["K"] = df_map.apply(lambda r: loc_db.get(r.get("state",""), {}).get(r.get("district",""), {}).get("K", "-") if loc_db else "-", axis=1)
 
-        # 🔍 Search & Filter Bar (No Division-Wise Filtering)
+        # 🔍 Search & Filter Bar
         sf1, sf2 = st.columns([1.5, 1])
         with sf1:
             search_query = st.text_input("🔍 Search District or State", "", placeholder="Type 'Ahmednagar', 'Kolhapur', 'Nagpur', 'Nashik'...")
@@ -458,7 +506,6 @@ with tab_map:
         st.info(f"Showing **{len(filtered_map_df)}** of **{len(df_map)}** essential regional district data points.")
         
         if not filtered_map_df.empty:
-            # Dynamically build hover_data dictionary using only existing columns
             hover_dict = {"lat": False, "lon": False}
             for col in ["state", "primary_crop", "N", "P", "K", "soil_type", "elevation_m", "rainfall"]:
                 if col in filtered_map_df.columns:
@@ -475,19 +522,19 @@ with tab_map:
                 size_max=28,
                 zoom=5.8,
                 center={"lat": 19.2, "lon": 76.0},
-                mapbox_style="carto-darkmatter",
+                mapbox_style="carto-positron",
                 title="Searchable GIS Regional Crop Distribution (CropPro.Ai)"
             )
             fig_geo.update_layout(
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)',
-                font=dict(color='#00FF9D', family='sans-serif', size=13),
-                title=dict(font=dict(color='#00FF9D', size=18, family='sans-serif')),
+                font=dict(color='#1E293B', family='sans-serif', size=13),
+                title=dict(font=dict(color='#14532D', size=18, family='sans-serif')),
                 legend=dict(
-                    font=dict(color='#E2EFEA', size=12),
-                    title=dict(font=dict(color='#00FF9D', size=13)),
-                    bgcolor='rgba(12, 36, 26, 0.95)',
-                    bordercolor='rgba(0, 255, 157, 0.3)',
+                    font=dict(color='#1E293B', size=12),
+                    title=dict(font=dict(color='#14532D', size=13)),
+                    bgcolor='rgba(255, 255, 255, 0.95)',
+                    bordercolor='#CBD5E1',
                     borderwidth=1
                 ),
                 height=580,
@@ -503,13 +550,13 @@ with tab_map:
                 with d_cols[col_idx]:
                     card_html = f"""<div class="district-grid-card">
 <div style="display: flex; justify-content: space-between; align-items: center;">
-<strong style="color: #00FF9D; font-size: 1.1rem;">📍 {row['district']}</strong>
-<span style="background: rgba(0, 255, 157, 0.15); color: #00FF9D; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem;">{row['state']}</span>
+<strong style="color: #14532D; font-size: 1.08rem;">📍 {row['district']}</strong>
+<span style="background: #E2E8F0; color: #334155; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem;">{row['state']}</span>
 </div>
-<div style="color: #A3C9B8; font-size: 0.9rem; margin-top: 6px;">🌾 <b>Primary Crops:</b> {row['primary_crop']}</div>
-<div style="color: #A3C9B8; font-size: 0.9rem;">🧪 <b>Baseline NPK:</b> {row.get('N','-')}-{row.get('P','-')}-{row.get('K','-')}</div>
-<div style="color: #A3C9B8; font-size: 0.9rem;">🏔️ <b>Elevation:</b> {row['elevation_m']}m | 🌧️ <b>Rainfall:</b> {row['rainfall']}mm</div>
-<div style="color: #A3C9B8; font-size: 0.9rem;">🌱 <b>Soil:</b> {row['soil_type']}</div>
+<div style="color: #475569; font-size: 0.88rem; margin-top: 6px;">🌾 <b>Primary Crops:</b> {row['primary_crop']}</div>
+<div style="color: #475569; font-size: 0.88rem;">🧪 <b>Baseline NPK:</b> {row.get('N','-')}-{row.get('P','-')}-{row.get('K','-')}</div>
+<div style="color: #475569; font-size: 0.88rem;">🏔️ <b>Elevation:</b> {row['elevation_m']}m | 🌧️ <b>Rainfall:</b> {row['rainfall']}mm</div>
+<div style="color: #475569; font-size: 0.88rem;">🌱 <b>Soil:</b> {row['soil_type']}</div>
 </div>"""
                     st.markdown(card_html, unsafe_allow_html=True)
         else:
@@ -517,7 +564,7 @@ with tab_map:
 
 # TAB 3: Dataset Explorer
 with tab_data:
-    st.markdown("<h3 style='color: #00FF9D;'>📊 Dataset & Raw Telemetry Explorer</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #14532D;'>📊 Dataset & Raw Telemetry Explorer</h3>", unsafe_allow_html=True)
     st.markdown("Explore, search, filter, and export underlying agronomic benchmarks.")
     
     if map_data_res:
@@ -539,7 +586,7 @@ with tab_data:
 
 # TAB 4: Farmer Portal
 with tab_auth:
-    st.markdown("<h3 style='color: #00FF9D;'>👤 Farmer Portal & Account Management</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #14532D;'>👤 Farmer Portal & Account Management</h3>", unsafe_allow_html=True)
     
     if st.session_state.logged_in:
         u = st.session_state.user_info
@@ -603,4 +650,4 @@ with tab_auth:
                     st.error("Backend API connection error.")
 
 st.markdown("---")
-st.markdown("<p style='text-align: center; color: #5D8071; font-size: 0.9rem;'>CropPro.Ai Platform • Precision Agriculture Decision Engine</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #64748B; font-size: 0.9rem;'>CropPro.Ai Platform • Precision Agriculture Decision Engine</p>", unsafe_allow_html=True)
