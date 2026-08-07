@@ -13,8 +13,8 @@ from typing import Optional, List, Dict
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 app = FastAPI(
-    title="farmpro.ai Precision Intelligence API",
-    description="Audited ML Engine with 33 Crops, Factual Maharashtra Agronomy (Ginger, Sugarcane, Turmeric, Soybean, Jowar, Bajra, Onion, Sweet Lime), 30+ District GIS Data, and Organic Advisory",
+    title="CropPro.Ai Precision Intelligence API",
+    description="Audited ML Engine with 33 Crops, Factual Maharashtra Regional Agronomy (Sugarcane, Jowar, Bajra, Maize, Cotton, Soybean, Paddy, Pigeonpea, Onion, Banana, Grapes, Mango, Cashew), Regional GIS Data, and Organic Advisory",
     version="5.2.0"
 )
 
@@ -81,11 +81,11 @@ CLEAN_CROP_NAMES = {
 }
 
 FARMER_USERS_DB = {
-    "farmer@farmpro.ai": {
+    "farmer@croppro.ai": {
         "name": "Ramesh Kumar",
         "password": "password123",
         "state": "Maharashtra",
-        "district": "Nashik",
+        "district": "Ahmednagar",
         "acres": 5.5,
         "soil_card_id": "SHC-MH-2026-8841"
     }
@@ -93,35 +93,48 @@ FARMER_USERS_DB = {
 
 EXPANDED_DISTRICTS_DB = {
     "Maharashtra": {
-        "Satara": {"lat": 17.6805, "lon": 73.9937, "zone": "Western Maharashtra", "terrain": "Sahyadri Foothills", "elevation_m": 700, "soil_type": "Rich Loamy Red-Black Soil", "primary_crop": "Ginger & Sugarcane", "N": 80, "P": 60, "K": 100, "temp": 24.5, "humidity": 80, "ph": 6.2, "rainfall": 190, "soil_ec": 0.9, "market_pi": 9.4},
-        "Sangli": {"lat": 16.8524, "lon": 74.5815, "zone": "Western Maharashtra", "terrain": "Krishna River Basin", "elevation_m": 540, "soil_type": "Deep Alluvial Loam", "primary_crop": "Turmeric & Grapes", "N": 90, "P": 65, "K": 110, "temp": 26.5, "humidity": 75, "ph": 6.4, "rainfall": 150, "soil_ec": 1.1, "market_pi": 9.5},
-        "Kolhapur": {"lat": 16.7050, "lon": 74.2433, "zone": "Western Maharashtra", "terrain": "Panchganga Basin", "elevation_m": 550, "soil_type": "Rich Deep Black Soil", "primary_crop": "Sugarcane & Rice", "N": 145, "P": 60, "K": 60, "temp": 26.0, "humidity": 82, "ph": 6.5, "rainfall": 160, "soil_ec": 1.2, "market_pi": 8.8},
-        "Nashik": {"lat": 20.0059, "lon": 73.7898, "zone": "Western Maharashtra", "terrain": "Deccan Plateau", "elevation_m": 580, "soil_type": "Friable Black Loam", "primary_crop": "Onion & Grapes", "N": 90, "P": 60, "K": 95, "temp": 22.0, "humidity": 70, "ph": 6.4, "rainfall": 80, "soil_ec": 1.2, "market_pi": 9.4},
-        "Chhatrapati Sambhajinagar": {"lat": 19.8762, "lon": 75.3433, "zone": "Marathwada", "terrain": "Deccan Traps", "elevation_m": 570, "soil_type": "Medium Black Cotton", "primary_crop": "Ginger & Sweet Lime", "N": 85, "P": 58, "K": 95, "temp": 26.0, "humidity": 75, "ph": 6.5, "rainfall": 160, "soil_ec": 1.0, "market_pi": 9.2},
-        "Solapur": {"lat": 17.6599, "lon": 75.9064, "zone": "Western Maharashtra", "terrain": "Dry Deccan Plateau", "elevation_m": 460, "soil_type": "Shallow Black Alkaline", "primary_crop": "Jowar & Pomegranate", "N": 70, "P": 35, "K": 35, "temp": 28.5, "humidity": 48, "ph": 7.5, "rainfall": 55, "soil_ec": 1.4, "market_pi": 8.6},
-        "Latur": {"lat": 18.4088, "lon": 76.5604, "zone": "Marathwada", "terrain": "Balaghat Plateau", "elevation_m": 630, "soil_type": "Black Clay Loam", "primary_crop": "Soybean & Pulses", "N": 35, "P": 70, "K": 50, "temp": 27.0, "humidity": 65, "ph": 6.8, "rainfall": 90, "soil_ec": 1.0, "market_pi": 8.8},
-        "Ahilyanagar": {"lat": 19.0952, "lon": 74.7496, "zone": "Central Scarcity", "terrain": "Pravara Basin", "elevation_m": 650, "soil_type": "Medium Black Soil", "primary_crop": "Bajra & Sugarcane", "N": 65, "P": 32, "K": 32, "temp": 28.0, "humidity": 45, "ph": 7.2, "rainfall": 50, "soil_ec": 1.2, "market_pi": 7.8},
-        "Jalgaon": {"lat": 21.0077, "lon": 75.5626, "zone": "Khandesh", "terrain": "Tapi Basin", "elevation_m": 210, "soil_type": "Deep Black Alluvial", "primary_crop": "Banana & Cotton", "N": 100, "P": 82, "K": 50, "temp": 28.5, "humidity": 75, "ph": 6.2, "rainfall": 100, "soil_ec": 1.1, "market_pi": 8.6},
-        "Nagpur": {"lat": 21.1458, "lon": 79.0882, "zone": "Vidarbha", "terrain": "Central Plateau", "elevation_m": 310, "soil_type": "Deep Black Alluvial", "primary_crop": "Orange & Cotton", "N": 25, "P": 20, "K": 15, "temp": 23.0, "humidity": 92, "ph": 7.0, "rainfall": 110, "soil_ec": 0.9, "market_pi": 8.8},
-        "Jalna": {"lat": 19.8347, "lon": 75.8816, "zone": "Marathwada", "terrain": "Upper Dudhna Basin", "elevation_m": 510, "soil_type": "Medium Black Soil", "primary_crop": "Sweet Lime & Seed Hub", "N": 110, "P": 50, "K": 60, "temp": 27.5, "humidity": 60, "ph": 7.1, "rainfall": 75, "soil_ec": 1.1, "market_pi": 8.9},
-        "Amravati": {"lat": 20.9374, "lon": 77.7796, "zone": "Vidarbha", "terrain": "Satpura Foothills", "elevation_m": 340, "soil_type": "Black Loamy Soil", "primary_crop": "Soybean & Orange", "N": 32, "P": 68, "K": 48, "temp": 27.5, "humidity": 68, "ph": 6.9, "rainfall": 95, "soil_ec": 1.0, "market_pi": 8.5},
-        "Yavatmal": {"lat": 20.3888, "lon": 78.1204, "zone": "Vidarbha", "terrain": "Yavatmal Plateau", "elevation_m": 440, "soil_type": "Heavy Black Soil", "primary_crop": "Cotton & Soybean", "N": 115, "P": 46, "K": 20, "temp": 28.5, "humidity": 62, "ph": 7.0, "rainfall": 95, "soil_ec": 1.1, "market_pi": 8.0},
-        "Ratnagiri": {"lat": 16.9902, "lon": 73.3120, "zone": "Konkan Coast", "terrain": "Coastal Lowland", "elevation_m": 35, "soil_type": "Acidic Red Laterite", "primary_crop": "Alphonso Mango & Coconut", "N": 25, "P": 25, "K": 30, "temp": 28.0, "humidity": 88, "ph": 5.6, "rainfall": 210, "soil_ec": 1.5, "market_pi": 9.4},
-        "Sindhudurg": {"lat": 16.1264, "lon": 73.6990, "zone": "Konkan Coast", "terrain": "South Konkan Strip", "elevation_m": 45, "soil_type": "Coarse Red Acidic", "primary_crop": "Cashew & Rice", "N": 70, "P": 40, "K": 40, "temp": 27.5, "humidity": 90, "ph": 5.5, "rainfall": 220, "soil_ec": 1.6, "market_pi": 8.9}
-    },
-    "Punjab": {
-        "Ludhiana": {"lat": 30.9010, "lon": 75.8573, "zone": "Indo-Gangetic Plain", "terrain": "Alluvial Basin", "elevation_m": 245, "soil_type": "Alluvial Loam", "primary_crop": "Wheat & Rice", "N": 90, "P": 45, "K": 35, "temp": 16.0, "humidity": 52, "ph": 7.2, "rainfall": 75, "soil_ec": 0.9, "market_pi": 7.5},
-        "Amritsar": {"lat": 31.6340, "lon": 74.8723, "zone": "Upper Bari Doab", "terrain": "Plains", "elevation_m": 230, "soil_type": "Silt Loam", "primary_crop": "Basmati Rice & Wheat", "N": 88, "P": 42, "K": 32, "temp": 15.5, "humidity": 50, "ph": 7.3, "rainfall": 70, "soil_ec": 0.95, "market_pi": 7.3}
-    },
-    "Karnataka": {
-        "Coorg / Kodagu": {"lat": 12.3375, "lon": 75.8069, "zone": "Southern Western Ghats", "terrain": "Coffee Hills", "elevation_m": 1150, "soil_type": "Acidic Red Clay", "primary_crop": "Coffee & Pepper", "N": 100, "P": 25, "K": 30, "temp": 21.0, "humidity": 78, "ph": 6.2, "rainfall": 195, "soil_ec": 0.7, "market_pi": 9.5},
-        "Shimoga": {"lat": 13.9299, "lon": 75.5681, "zone": "Malnad Heavy Rainfall", "terrain": "Hilly Plain", "elevation_m": 640, "soil_type": "Laterite Loam", "primary_crop": "Arecanut & Rice", "N": 80, "P": 45, "K": 40, "temp": 24.0, "humidity": 80, "ph": 6.4, "rainfall": 200, "soil_ec": 0.72, "market_pi": 9.4}
-    },
-    "Tamil Nadu": {
-        "Nilgiris / Ooty": {"lat": 11.4102, "lon": 76.6950, "zone": "Nilgiri High Hills", "terrain": "High Altitude Mountain", "elevation_m": 1350, "soil_type": "Acidic Mountain Soil", "primary_crop": "Tea & Vegetables", "N": 110, "P": 30, "K": 45, "temp": 18.0, "humidity": 85, "ph": 5.0, "rainfall": 250, "soil_ec": 0.6, "market_pi": 9.4}
-    },
-    "Himachal Pradesh": {
-        "Shimla / Kullu": {"lat": 31.1048, "lon": 77.1734, "zone": "Himalayan Temperate", "terrain": "High Mountain Valleys", "elevation_m": 1500, "soil_type": "Brown Forest Soil", "primary_crop": "Apples", "N": 25, "P": 130, "K": 195, "temp": 14.0, "humidity": 75, "ph": 5.9, "rainfall": 110, "soil_ec": 0.5, "market_pi": 9.0}
+        # Western Maharashtra (Pune, Ahmednagar, Satara, Solapur, Kolhapur)
+        "Pune": {"lat": 18.5204, "lon": 73.8567, "elevation_m": 560, "soil_type": "Deep Black Alluvial & Loam", "primary_crop": "Sugarcane, Sweet Corn & Jowar", "N": 130, "P": 55, "K": 55, "temp": 24.0, "humidity": 72, "ph": 6.5, "rainfall": 90, "soil_ec": 1.1, "market_pi": 9.2},
+        "Ahmednagar": {"lat": 19.0952, "lon": 74.7496, "elevation_m": 650, "soil_type": "Medium Black Fertile Soil", "primary_crop": "Sugarcane, Bajra & Jowar (Sugar Hub)", "N": 140, "P": 60, "K": 60, "temp": 27.5, "humidity": 55, "ph": 7.2, "rainfall": 60, "soil_ec": 1.2, "market_pi": 9.4},
+        "Satara": {"lat": 17.6805, "lon": 73.9937, "elevation_m": 700, "soil_type": "Rich Loamy Red-Black Soil", "primary_crop": "Sugarcane & Sweet Corn", "N": 135, "P": 58, "K": 62, "temp": 24.5, "humidity": 78, "ph": 6.3, "rainfall": 140, "soil_ec": 0.9, "market_pi": 9.3},
+        "Solapur": {"lat": 17.6599, "lon": 75.9064, "elevation_m": 460, "soil_type": "Shallow Black Alkaline Soil", "primary_crop": "Jowar (Sorghum) & Bajra", "N": 68, "P": 36, "K": 38, "temp": 29.0, "humidity": 48, "ph": 7.6, "rainfall": 55, "soil_ec": 1.4, "market_pi": 8.7},
+        "Kolhapur": {"lat": 16.7050, "lon": 74.2433, "elevation_m": 550, "soil_type": "Rich Deep Black Soil", "primary_crop": "Sugarcane & Jowar (Sugar & Irrigated Hub)", "N": 148, "P": 62, "K": 65, "temp": 26.0, "humidity": 82, "ph": 6.6, "rainfall": 165, "soil_ec": 1.2, "market_pi": 9.5},
+
+        # Vidarbha (Nagpur, Akola, Amravati, Yavatmal, Wardha, Buldhana, Chandrapur, Gondia, Gadchiroli, Washim, Bhandara)
+        "Nagpur": {"lat": 21.1458, "lon": 79.0882, "elevation_m": 310, "soil_type": "Deep Black Alluvial", "primary_crop": "Cotton & Soybean", "N": 110, "P": 50, "K": 30, "temp": 27.0, "humidity": 65, "ph": 7.0, "rainfall": 110, "soil_ec": 0.9, "market_pi": 8.9},
+        "Akola": {"lat": 20.7002, "lon": 77.0082, "elevation_m": 280, "soil_type": "Black Cotton Soil", "primary_crop": "Cotton & Soybean Belt", "N": 115, "P": 48, "K": 25, "temp": 28.5, "humidity": 60, "ph": 7.2, "rainfall": 85, "soil_ec": 1.1, "market_pi": 8.6},
+        "Amravati": {"lat": 20.9374, "lon": 77.7796, "elevation_m": 340, "soil_type": "Black Loamy Soil", "primary_crop": "Soybean & Cotton", "N": 35, "P": 70, "K": 50, "temp": 27.5, "humidity": 66, "ph": 6.9, "rainfall": 95, "soil_ec": 1.0, "market_pi": 8.8},
+        "Yavatmal": {"lat": 20.3888, "lon": 78.1204, "elevation_m": 440, "soil_type": "Heavy Black Soil", "primary_crop": "Cotton & Soybean (Chief Belt)", "N": 120, "P": 45, "K": 25, "temp": 28.5, "humidity": 62, "ph": 7.1, "rainfall": 95, "soil_ec": 1.1, "market_pi": 8.8},
+        "Wardha": {"lat": 20.7453, "lon": 78.6022, "elevation_m": 230, "soil_type": "Deep Black Fertile Soil", "primary_crop": "Cotton & Soybean", "N": 112, "P": 46, "K": 26, "temp": 28.0, "humidity": 63, "ph": 7.0, "rainfall": 100, "soil_ec": 1.0, "market_pi": 8.5},
+        "Buldhana": {"lat": 20.5292, "lon": 76.1843, "elevation_m": 530, "soil_type": "Medium Black Soil", "primary_crop": "Cotton & Soybean", "N": 108, "P": 48, "K": 28, "temp": 27.8, "humidity": 61, "ph": 7.1, "rainfall": 80, "soil_ec": 1.0, "market_pi": 8.4},
+        "Chandrapur": {"lat": 19.9615, "lon": 79.2961, "elevation_m": 190, "soil_type": "Clay Loam & Alluvial Soil", "primary_crop": "Paddy (Rice) & Cotton", "N": 90, "P": 48, "K": 42, "temp": 28.2, "humidity": 72, "ph": 6.7, "rainfall": 130, "soil_ec": 0.9, "market_pi": 8.6},
+        "Gondia": {"lat": 21.4624, "lon": 80.1961, "elevation_m": 300, "soil_type": "Yellowish Red Loam", "primary_crop": "Paddy (Rice) & Soybean (High Paddy Belt)", "N": 85, "P": 45, "K": 40, "temp": 26.5, "humidity": 80, "ph": 6.4, "rainfall": 145, "soil_ec": 0.8, "market_pi": 8.9},
+        "Bhandara": {"lat": 21.1714, "lon": 79.6547, "elevation_m": 244, "soil_type": "Alluvial Clay Loam", "primary_crop": "Paddy (Rice) & Soybean (High Paddy Belt)", "N": 88, "P": 46, "K": 42, "temp": 26.8, "humidity": 81, "ph": 6.5, "rainfall": 140, "soil_ec": 0.85, "market_pi": 8.8},
+        "Gadchiroli": {"lat": 20.1849, "lon": 79.9948, "elevation_m": 217, "soil_type": "Red & Yellow Loamy Soil", "primary_crop": "Paddy (Rice) & Cotton", "N": 82, "P": 42, "K": 38, "temp": 27.0, "humidity": 82, "ph": 6.2, "rainfall": 155, "soil_ec": 0.8, "market_pi": 8.3},
+        "Washim": {"lat": 20.1109, "lon": 77.1327, "elevation_m": 545, "soil_type": "Black Cotton Soil", "primary_crop": "Soybean & Cotton", "N": 32, "P": 68, "K": 48, "temp": 28.0, "humidity": 64, "ph": 7.0, "rainfall": 85, "soil_ec": 1.0, "market_pi": 8.5},
+
+        # Marathwada (Chhatrapati Sambhajinagar, Beed, Latur, Nanded, Parbhani, Jalna, Hingoli, Dharashiv)
+        "Chhatrapati Sambhajinagar": {"lat": 19.8762, "lon": 75.3433, "elevation_m": 570, "soil_type": "Medium Black Cotton Soil", "primary_crop": "Soybean, Cotton & Rabi Jowar", "N": 110, "P": 52, "K": 30, "temp": 26.5, "humidity": 65, "ph": 6.8, "rainfall": 75, "soil_ec": 1.0, "market_pi": 9.1},
+        "Beed": {"lat": 18.9891, "lon": 75.7601, "elevation_m": 515, "soil_type": "Medium Black Soil", "primary_crop": "Soybean, Cotton & Rabi Jowar", "N": 105, "P": 50, "K": 32, "temp": 27.5, "humidity": 60, "ph": 7.0, "rainfall": 68, "soil_ec": 1.1, "market_pi": 8.6},
+        "Latur": {"lat": 18.4088, "lon": 76.5604, "elevation_m": 630, "soil_type": "Black Clay Loam", "primary_crop": "Soybean & Tur (Pigeonpea)", "N": 35, "P": 72, "K": 50, "temp": 27.0, "humidity": 65, "ph": 6.8, "rainfall": 90, "soil_ec": 1.0, "market_pi": 8.9},
+        "Nanded": {"lat": 19.1383, "lon": 77.3210, "elevation_m": 360, "soil_type": "Deep Black Alluvial Soil", "primary_crop": "Cotton, Soybean & Tur (Pigeonpea)", "N": 115, "P": 48, "K": 28, "temp": 28.0, "humidity": 68, "ph": 7.1, "rainfall": 95, "soil_ec": 1.1, "market_pi": 8.7},
+        "Parbhani": {"lat": 19.2686, "lon": 76.7709, "elevation_m": 407, "soil_type": "Heavy Black Soil", "primary_crop": "Soybean, Cotton & Rabi Jowar", "N": 108, "P": 50, "K": 30, "temp": 27.8, "humidity": 62, "ph": 7.0, "rainfall": 80, "soil_ec": 1.0, "market_pi": 8.5},
+        "Jalna": {"lat": 19.8347, "lon": 75.8816, "elevation_m": 510, "soil_type": "Medium Black Soil", "primary_crop": "Soybean, Cotton & Tur (Pigeonpea)", "N": 110, "P": 52, "K": 32, "temp": 27.5, "humidity": 60, "ph": 7.1, "rainfall": 75, "soil_ec": 1.1, "market_pi": 8.8},
+        "Hingoli": {"lat": 19.7173, "lon": 77.1486, "elevation_m": 470, "soil_type": "Black Loam Soil", "primary_crop": "Soybean & Tur (Pigeonpea)", "N": 34, "P": 70, "K": 48, "temp": 27.2, "humidity": 66, "ph": 6.9, "rainfall": 88, "soil_ec": 1.0, "market_pi": 8.6},
+        "Dharashiv": {"lat": 18.1861, "lon": 76.0419, "elevation_m": 650, "soil_type": "Medium Black Soil", "primary_crop": "Rabi Jowar, Soybean & Tur", "N": 68, "P": 42, "K": 40, "temp": 27.0, "humidity": 58, "ph": 7.3, "rainfall": 65, "soil_ec": 1.2, "market_pi": 8.6},
+
+        # Khandesh & Northern Maharashtra (Nashik, Jalgaon, Dhule, Nandurbar)
+        "Nashik": {"lat": 20.0059, "lon": 73.7898, "elevation_m": 580, "soil_type": "Friable Black Loam", "primary_crop": "Onions, Grapes & Bajra (Horticulture Hub)", "N": 90, "P": 60, "K": 95, "temp": 22.0, "humidity": 70, "ph": 6.4, "rainfall": 80, "soil_ec": 1.2, "market_pi": 9.6},
+        "Jalgaon": {"lat": 21.0077, "lon": 75.5626, "elevation_m": 210, "soil_type": "Deep Black Alluvial Soil", "primary_crop": "Bananas, Grapes & Bajra (Banana Hub)", "N": 110, "P": 85, "K": 55, "temp": 28.5, "humidity": 75, "ph": 6.2, "rainfall": 100, "soil_ec": 1.1, "market_pi": 9.5},
+        "Dhule": {"lat": 20.9042, "lon": 74.7749, "elevation_m": 270, "soil_type": "Medium Black & Alluvial Soil", "primary_crop": "Onions, Bajra & Cash Crops", "N": 60, "P": 35, "K": 35, "temp": 28.0, "humidity": 58, "ph": 7.0, "rainfall": 65, "soil_ec": 1.0, "market_pi": 8.7},
+        "Nandurbar": {"lat": 21.3723, "lon": 74.2403, "elevation_m": 210, "soil_type": "Alluvial & Hilly Loam", "primary_crop": "Bajra, Maize & Cash Crops", "N": 62, "P": 38, "K": 36, "temp": 28.2, "humidity": 60, "ph": 6.8, "rainfall": 85, "soil_ec": 0.95, "market_pi": 8.4},
+
+        # Konkan (Thane, Palghar, Raigad, Ratnagiri, Sindhudurg)
+        "Thane": {"lat": 19.2183, "lon": 72.9781, "elevation_m": 15, "soil_type": "Coastal Alluvial Loam", "primary_crop": "Rice (Paddy) & Coastal Horticulture", "N": 85, "P": 42, "K": 40, "temp": 27.0, "humidity": 85, "ph": 5.8, "rainfall": 200, "soil_ec": 1.4, "market_pi": 8.7},
+        "Palghar": {"lat": 19.6966, "lon": 72.7699, "elevation_m": 10, "soil_type": "Coastal Alluvial & Red Soil", "primary_crop": "Rice (Paddy) & Coastal Fruits", "N": 88, "P": 44, "K": 42, "temp": 27.2, "humidity": 86, "ph": 5.7, "rainfall": 210, "soil_ec": 1.5, "market_pi": 8.6},
+        "Raigad": {"lat": 18.5158, "lon": 73.1822, "elevation_m": 25, "soil_type": "Red Laterite & Alluvial", "primary_crop": "Rice (Paddy) & Alphonso Mango", "N": 82, "P": 40, "K": 38, "temp": 27.5, "humidity": 87, "ph": 5.6, "rainfall": 220, "soil_ec": 1.5, "market_pi": 9.1},
+        "Ratnagiri": {"lat": 16.9902, "lon": 73.3120, "elevation_m": 35, "soil_type": "Acidic Red Laterite", "primary_crop": "Alphonso Mango, Cashewnuts & Rice", "N": 28, "P": 26, "K": 32, "temp": 28.0, "humidity": 88, "ph": 5.6, "rainfall": 230, "soil_ec": 1.5, "market_pi": 9.6},
+        "Sindhudurg": {"lat": 16.1264, "lon": 73.6990, "elevation_m": 45, "soil_type": "Coarse Red Acidic Soil", "primary_crop": "Cashewnuts, Alphonso Mango & Rice", "N": 70, "P": 40, "K": 40, "temp": 27.5, "humidity": 90, "ph": 5.5, "rainfall": 240, "soil_ec": 1.6, "market_pi": 9.2}
     }
 }
 
@@ -214,7 +227,7 @@ class PredictionRequest(BaseModel):
 @app.get("/")
 def read_root():
     return {
-        "system": "farmpro.ai Precision Intelligence API",
+        "system": "CropPro.Ai Precision Intelligence API",
         "status": "Online",
         "states_available": list(EXPANDED_DISTRICTS_DB.keys()),
         "crops_supported": len(class_names)
@@ -254,10 +267,16 @@ def get_crop_map_data():
                 "district": dist_name,
                 "lat": data["lat"],
                 "lon": data["lon"],
-                "zone": data["zone"],
                 "elevation_m": data["elevation_m"],
                 "soil_type": data["soil_type"],
                 "primary_crop": data["primary_crop"],
+                "N": data["N"],
+                "P": data["P"],
+                "K": data["K"],
+                "rainfall": data["rainfall"],
+                "market_pi": data["market_pi"]
+            })
+    return {"status": "success", "total_points": len(map_points), "data": map_points}
                 "rainfall": data["rainfall"],
                 "market_pi": data["market_pi"]
             })

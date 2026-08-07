@@ -1,13 +1,13 @@
-# 🌱 farmpro.ai — Flagship Precision Agriculture & Crop Decision Engine
+# 🌱 CropPro.Ai — Flagship Precision Agriculture & Crop Decision Engine
 
-**farmpro.ai** is an award-winning, state-of-the-art **Adaptive Precision Agriculture Decision Engine** built for major university hackathons. Powered by a multi-class **XGBoost Classifier (99.20% accuracy)** trained on **264,000+ synthetic & empirical telemetry records**, **SHAP TreeExplainer AI logic**, and an **Organic Zero-Synthetic Profitability Advisory**.
+**CropPro.Ai** is an award-winning, state-of-the-art **Adaptive Precision Agriculture Decision Engine** built for major university hackathons. Powered by a multi-class **XGBoost Classifier (99.20% accuracy)** trained on **264,000+ synthetic & empirical telemetry records**, **SHAP TreeExplainer AI logic**, and an **Organic Zero-Synthetic Profitability Advisory**.
 
 ---
 
 ## 🏆 Key Features & Innovations
 
 ### 1. 🤖 High-Precision XGBoost Classifier (99.20% Test Accuracy)
-- Trained on **264,000 rows across 33 crop categories** (including major Indian staples, plantation crops, and Maharashtra specialties like Ginger, Sugarcane, Turmeric, Soybean, Jowar, Bajra, Onion, and Sweet Lime).
+- Trained on **264,000 rows across 33 crop categories** (including major Indian staples, plantation crops, and Maharashtra specialties like Sugarcane, Jowar, Bajra, Maize, Cotton, Soybean, Paddy, Pigeonpea, Onion, Banana, Grapes, Mango, and Cashew).
 - Inputs 10 key soil and climate telemetry features:
   `['N', 'P', 'K', 'temperature', 'humidity', 'ph', 'rainfall', 'soil_ec', 'market_profitability_index', 'elevation_m']`
 
@@ -19,7 +19,7 @@
   - 💰 **Profit Maximization**: Farmgate sales, steam boiling, and cold storage holding strategies.
 
 ### 3. 🗺️ Searchable GIS Regional Map & Telemetry Explorer
-- Interactive **Plotly Mapbox GIS Map** (`carto-darkmatter` style) with real-time **District & State Text Search**, **Crop Belt Multi-Select Filter**, and **Agro-Zone Selectors**.
+- Interactive **Plotly Mapbox GIS Map** (`carto-darkmatter` style) with real-time **District Text Search**, **Crop Belt Multi-Select Filter**, and **Regional Datasets**.
 - Side-by-side **District Telemetry Cards Grid** and full **CSV Benchmark Dataset Export**.
 
 ### 4. 👤 Farmer Account Portal
@@ -33,7 +33,7 @@
 graph TD
     A[👨‍🌾 Farmer / User] -->|Inputs Telemetry / Typed Data| B[💻 Streamlit Frontend App - Port 8501]
     B -->|REST HTTP Requests| C[⚡ FastAPI Backend Server - Port 8000]
-    C -->|10 Feature Payload| D[🤖 XGBoost ML Classifier]
+    C -->|10 Feature Payload| D[🤖 XGBoost ML Classifier - CropPro.Ai]
     D -->|Softmax Probabilities| E[🧠 Real-World Constraint Engine]
     D -->|SHAP TreeExplainer| F[🔍 AI Logic Reasoning]
     E -->|Predictions + Organic Advisory| C
@@ -61,8 +61,10 @@ python -m streamlit run frontend/app.py --server.port 8501 --server.headless tru
 ---
 
 ## 📊 Model Training Specs
+- **Model Name**: CropPro.Ai
 - **Rows**: 264,000
 - **Features**: 10
 - **Classes**: 33
 - **Test Accuracy**: 99.20%
 - **Artifacts**: `xgb_model.pkl`, `label_encoder.pkl`
+

@@ -7,7 +7,7 @@ import numpy as np
 
 # Page Configuration
 st.set_page_config(
-    page_title="farmpro.ai | Precision Agriculture Platform",
+    page_title="CropPro.Ai | Precision Agriculture Platform",
     page_icon="🌱",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -158,19 +158,19 @@ BACKEND_URL = "http://localhost:8000"
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 if "user_info" not in st.session_state:
-    st.session_state.user_info = {"name": "Guest Farmer", "state": "Maharashtra", "district": "Nashik", "acres": 5.0, "soil_card_id": "SHC-MH-2026-0000"}
+    st.session_state.user_info = {"name": "Guest Farmer", "state": "Maharashtra", "district": "Ahmednagar", "acres": 5.0, "soil_card_id": "SHC-MH-2026-0000"}
 
 # Header Banner
 st.markdown("""
 <div class="hero-header">
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
-            <h1 class="hero-title">🌱 farmpro.ai</h1>
+            <h1 class="hero-title">🌱 CropPro.Ai</h1>
             <p class="hero-subtitle">Precision Agriculture Decision Engine & Agro-Climatic Intelligence</p>
         </div>
         <div style="text-align: right;">
             <span style="background: rgba(0, 255, 157, 0.15); border: 1px solid #00FF9D; color: #00FF9D; padding: 8px 18px; border-radius: 30px; font-weight: 700; font-size: 0.9rem;">
-                ⚡ Precision Engine Active
+                ⚡ CropPro.Ai Model Active
             </span>
         </div>
     </div>
@@ -196,14 +196,15 @@ if loc_db:
     states = list(loc_db.keys())
     sel_state = st.sidebar.selectbox("Select State", states, index=0)
     districts = list(loc_db[sel_state].keys())
-    sel_district = st.sidebar.selectbox("Select District (30+ Available)", districts, index=0)
+    sel_district = st.sidebar.selectbox("Select District (Maharashtra Crop Hubs)", districts, index=0)
     profile = loc_db[sel_state][sel_district]
 else:
     sel_state = "Maharashtra"
-    sel_district = "Nashik"
+    sel_district = "Ahmednagar"
     profile = {
-        "zone": "Western Maharashtra", "elevation_m": 580, "soil_type": "Black Basaltic Loam",
-        "N": 23, "P": 133, "K": 200, "temp": 24.0, "humidity": 81, "ph": 6.0, "rainfall": 70, "soil_ec": 1.8, "market_pi": 9.3
+        "elevation_m": 650, "soil_type": "Medium Black Fertile Soil",
+        "primary_crop": "Sugarcane, Bajra & Jowar (Sugar Hub)",
+        "N": 140, "P": 60, "K": 60, "temp": 27.5, "humidity": 55, "ph": 7.2, "rainfall": 60, "soil_ec": 1.2, "market_pi": 9.4
     }
 
 st.sidebar.markdown("---")
@@ -369,7 +370,7 @@ with tab_recommend:
 # TAB 2: Searchable Geographical Representation & GIS Map
 with tab_map:
     st.markdown("<h3 style='color: #00FF9D;'>🗺️ Searchable GIS Regional Agro-Climatic Map & Telemetry Explorer</h3>", unsafe_allow_html=True)
-    st.markdown("<p style='color: #A3C9B8;'>Search by District name, Crop belt, or Agro-climatic zone to easily locate regional data.</p>", unsafe_allow_html=True)
+    st.markdown("<p style='color: #A3C9B8;'>Search by District name or Primary Crop belt to easily locate essential regional data.</p>", unsafe_allow_html=True)
     
     map_data_res = None
     try:
@@ -382,14 +383,12 @@ with tab_map:
     if map_data_res:
         df_map = pd.DataFrame(map_data_res)
         
-        # 🔍 Search & Filter Bar
-        sf1, sf2, sf3 = st.columns([1.2, 1, 1])
+        # 🔍 Search & Filter Bar (No Division-Wise Filtering)
+        sf1, sf2 = st.columns([1.5, 1])
         with sf1:
-            search_query = st.text_input("🔍 Search District or State", "", placeholder="Type 'Nashik', 'Pune', 'Coorg'...")
+            search_query = st.text_input("🔍 Search District or State", "", placeholder="Type 'Ahmednagar', 'Kolhapur', 'Nagpur', 'Nashik'...")
         with sf2:
-            crop_filter = st.multiselect("🌾 Filter Crop Belt", options=df_map["primary_crop"].unique(), default=[])
-        with sf3:
-            zone_filter = st.multiselect("📍 Filter Zone", options=df_map["zone"].unique(), default=[])
+            crop_filter = st.multiselect("🌾 Filter Primary Crop Belt", options=df_map["primary_crop"].unique(), default=[])
 
         # Filter Logic
         filtered_map_df = df_map.copy()
@@ -400,10 +399,8 @@ with tab_map:
             ]
         if crop_filter:
             filtered_map_df = filtered_map_df[filtered_map_df["primary_crop"].isin(crop_filter)]
-        if zone_filter:
-            filtered_map_df = filtered_map_df[filtered_map_df["zone"].isin(zone_filter)]
             
-        st.info(f"Showing **{len(filtered_map_df)}** of **{len(df_map)}** regional district data points.")
+        st.info(f"Showing **{len(filtered_map_df)}** of **{len(df_map)}** essential regional district data points.")
         
         if not filtered_map_df.empty:
             fig_geo = px.scatter_mapbox(
@@ -413,8 +410,10 @@ with tab_map:
                 hover_name="district",
                 hover_data={
                     "state": True,
-                    "zone": True,
                     "primary_crop": True,
+                    "N": True,
+                    "P": True,
+                    "K": True,
                     "soil_type": True,
                     "elevation_m": True,
                     "rainfall": True,
@@ -424,10 +423,10 @@ with tab_map:
                 color="primary_crop",
                 size="elevation_m",
                 size_max=28,
-                zoom=5.5,
-                center={"lat": 19.5, "lon": 76.0},
+                zoom=5.8,
+                center={"lat": 19.2, "lon": 76.0},
                 mapbox_style="carto-darkmatter",
-                title="Searchable GIS Regional Crop Belt Distribution"
+                title="Searchable GIS Regional Crop Distribution (CropPro.Ai)"
             )
             fig_geo.update_layout(
                 paper_bgcolor='rgba(0,0,0,0)',
@@ -457,9 +456,10 @@ with tab_map:
 <strong style="color: #00FF9D; font-size: 1.1rem;">📍 {row['district']}</strong>
 <span style="background: rgba(0, 255, 157, 0.15); color: #00FF9D; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem;">{row['state']}</span>
 </div>
-<div style="color: #A3C9B8; font-size: 0.9rem; margin-top: 6px;">🌾 <b>Crop Belt:</b> {row['primary_crop']}</div>
+<div style="color: #A3C9B8; font-size: 0.9rem; margin-top: 6px;">🌾 <b>Primary Crops:</b> {row['primary_crop']}</div>
+<div style="color: #A3C9B8; font-size: 0.9rem;">🧪 <b>Baseline NPK:</b> {row.get('N','-')}-{row.get('P','-')}-{row.get('K','-')}</div>
 <div style="color: #A3C9B8; font-size: 0.9rem;">🏔️ <b>Elevation:</b> {row['elevation_m']}m | 🌧️ <b>Rainfall:</b> {row['rainfall']}mm</div>
-<div style="color: #A3C9B8; font-size: 0.9rem;">🧪 <b>Soil:</b> {row['soil_type']}</div>
+<div style="color: #A3C9B8; font-size: 0.9rem;">🌱 <b>Soil:</b> {row['soil_type']}</div>
 </div>"""
                     st.markdown(card_html, unsafe_allow_html=True)
         else:
@@ -502,14 +502,14 @@ with tab_auth:
         
         if st.button("🚪 Sign Out Account"):
             st.session_state.logged_in = False
-            st.session_state.user_info = {"name": "Guest Farmer", "state": "Maharashtra", "district": "Nashik", "acres": 5.0, "soil_card_id": "SHC-MH-2026-0000"}
+            st.session_state.user_info = {"name": "Guest Farmer", "state": "Maharashtra", "district": "Ahmednagar", "acres": 5.0, "soil_card_id": "SHC-MH-2026-0000"}
             st.rerun()
     else:
         auth_tab1, auth_tab2 = st.tabs(["🔑 Sign In to Account", "📝 Register New Farmer"])
         
         with auth_tab1:
             st.markdown("#### Sign in to access your Soil Health Card history & farm logs.")
-            in_email = st.text_input("Email Address", "farmer@farmpro.ai", key="tab_login_email")
+            in_email = st.text_input("Email Address", "farmer@croppro.ai", key="tab_login_email")
             in_pass = st.text_input("Password", "password123", type="password", key="tab_login_pass")
             
             if st.button("🔓 Sign In Now", key="btn_signin"):
@@ -529,10 +529,10 @@ with tab_auth:
         with auth_tab2:
             st.markdown("#### Register a new farmer profile to get customized soil advisory.")
             r_name = st.text_input("Full Name", "Aarav Patel", key="reg_name")
-            r_email = st.text_input("Email", "aarav@farmpro.ai", key="reg_email")
+            r_email = st.text_input("Email", "aarav@croppro.ai", key="reg_email")
             r_pass = st.text_input("Password", "secret123", type="password", key="reg_pass")
             r_state = st.selectbox("State", ["Maharashtra", "Punjab", "Karnataka", "Tamil Nadu", "Gujarat", "Assam"], key="reg_state")
-            r_district = st.text_input("District", "Nashik", key="reg_district")
+            r_district = st.text_input("District", "Ahmednagar", key="reg_district")
             r_acres = st.number_input("Land Acreage (Acres)", 1.0, 500.0, 5.0, key="reg_acres")
             
             if st.button("📝 Create Farmer Account", key="btn_signup"):
@@ -553,4 +553,4 @@ with tab_auth:
                     st.error("Backend API connection error.")
 
 st.markdown("---")
-st.markdown("<p style='text-align: center; color: #5D8071; font-size: 0.9rem;'>farmpro.ai Platform • Precision Agriculture Decision Engine</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #5D8071; font-size: 0.9rem;'>CropPro.Ai Platform • Precision Agriculture Decision Engine</p>", unsafe_allow_html=True)
