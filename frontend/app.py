@@ -736,13 +736,35 @@ with tab_data:
     st.markdown("<h3 style='color: #065F46;'>📊 Dataset & Raw Telemetry Explorer</h3>", unsafe_allow_html=True)
     st.markdown("Explore, search, filter, and export underlying agronomic benchmarks.")
     
-    if map_data_res:
-        df_exp = pd.DataFrame(map_data_res)
-        
+    df_exp = df_map if not df_map.empty else pd.DataFrame()
+    if df_exp.empty and loc_db:
+        exp_points = []
+        for state, districts in loc_db.items():
+            for dist_name, data in districts.items():
+                exp_points.append({
+                    "state": state,
+                    "district": dist_name,
+                    "elevation_m": data.get("elevation_m", 500),
+                    "soil_type": data.get("soil_type", "Medium Black"),
+                    "primary_crop": data.get("primary_crop", "Crops"),
+                    "N": data.get("N", 90),
+                    "P": data.get("P", 50),
+                    "K": data.get("K", 50),
+                    "rainfall": data.get("rainfall", 100),
+                    "market_pi": data.get("market_pi", 8.0)
+                })
+        df_exp = pd.DataFrame(exp_points)
+
+    if not df_exp.empty:
         st.markdown("#### 🔍 Filter Regional Telemetry")
-        f_state = st.multiselect("Filter by State", df_exp["state"].unique(), default=df_exp["state"].unique())
-        filtered_df = df_exp[df_exp["state"].isin(f_state)]
+        all_states = list(df_exp["state"].unique()) if "state" in df_exp.columns else []
+        f_state = st.multiselect("Filter by State", options=all_states, default=all_states)
         
+        if f_state:
+            filtered_df = df_exp[df_exp["state"].isin(f_state)]
+        else:
+            filtered_df = df_exp
+            
         st.dataframe(filtered_df, width="stretch")
         
         csv_data = filtered_df.to_csv(index=False).encode('utf-8')
@@ -752,6 +774,8 @@ with tab_data:
             file_name="district_agricultural_benchmarks.csv",
             mime="text/csv"
         )
+    else:
+        st.warning("No telemetry benchmark dataset available.")
 
 # TAB 4: Farmer Portal
 with tab_auth:
