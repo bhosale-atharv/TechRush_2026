@@ -26,22 +26,6 @@
 - Session state authentication (`/login` and `/signup`) for soil health card tracking and land acreage management.
 
 ---
-
-## 📐 System Architecture
-
-```mermaid
-graph TD
-    A[👨‍🌾 Farmer / User] -->|Inputs Telemetry / Typed Data| B[💻 Streamlit Frontend App - Port 8501]
-    B -->|REST HTTP Requests| C[⚡ FastAPI Backend Server - Port 8000]
-    C -->|10 Feature Payload| D[🤖 XGBoost ML Classifier - CropPro.Ai]
-    D -->|Softmax Probabilities| E[🧠 Real-World Constraint Engine]
-    D -->|SHAP TreeExplainer| F[🔍 AI Logic Reasoning]
-    E -->|Predictions + Organic Advisory| C
-    F -->|Feature Attributions| C
-    C -->|JSON Response| B
-    B -->|Dark Emerald Glassmorphism UI| A
-```
-
 ---
 
 ## 🚀 Quickstart Guide
